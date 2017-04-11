@@ -35,7 +35,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel Last Call"
+            android:text="Remove Last Call"
             android:id="@+id/cancel"/>
     </LinearLayout>
 
