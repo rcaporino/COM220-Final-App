@@ -1,4 +1,4 @@
-package com.example.android.com220drunkapp;
+package com.example.android.com220finalapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,24 +7,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.icu.util.Calendar;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
-
-import java.sql.Time;
-import java.util.Date;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

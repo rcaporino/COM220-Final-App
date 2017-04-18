@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.com220drunkapp">
+    package="com.example.android.com220finalapp">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-feature android:name="android.hardware.location.gps" />
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.android.com220finalapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CheersNoAsync"
+            android:name="com.example.android.com220finalapp.CheersNoAsync"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_cheers_no_async"
             android:theme="@style/FullscreenTheme"></activity>

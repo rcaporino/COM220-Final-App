@@ -1,9 +1,8 @@
-package com.example.android.com220drunkapp;
+package com.example.android.com220finalapp;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
