@@ -22,11 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Cheers"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_cheers"
-            android:theme="@style/FullscreenTheme" />
-        <activity
             android:name=".CheersNoAsync"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_cheers_no_async"

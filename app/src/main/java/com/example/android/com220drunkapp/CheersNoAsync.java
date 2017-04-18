@@ -98,7 +98,7 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cheers);
+        setContentView(R.layout.activity_cheers_no_async);
         reqPermissions();
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
@@ -113,7 +113,6 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
 
         //TODO put the pairing notification to the server here with the time.
         FindLocation();
-        //   new AsyncAccelChecker(this, this).execute();
 
     }
 
