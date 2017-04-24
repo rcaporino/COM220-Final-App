@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">COM220drunkapp</string>
+    <string name="app_name">COM220finalapp</string>
 
     <string name="title_activity_cheers">Cheers</string>
     <string name="dummy_button">Dummy Button</string>
