@@ -39,7 +39,7 @@ package com.example.android.com220finalapp;
         import org.w3c.dom.Text;
 
 
-public class drunkeness extends AppCompatActivity {
+public class Drunkeness extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
