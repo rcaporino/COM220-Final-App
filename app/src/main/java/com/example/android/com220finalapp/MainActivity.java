@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.android.com220finalapp.R;
+import com.example.android.com220finalapp.cameraclass;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -12,8 +15,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void cheersIntentCall(View view){
-        Intent intent = new Intent(this,CheersNoAsync.class);
+
+    public void callCameraClass(View view)
+    {
+        Intent intent = new Intent(this, cameraclass.class);
         startActivity(intent);
     }
+
 }
