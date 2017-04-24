@@ -22,7 +22,7 @@
 
     <style name="BottomViewBar">
         <item name="android:background">@android:color/black</item>
-        <item name="android:layout_marginTop">125dp</item>
+        <item name="android:layout_marginTop">121dp</item>
     </style>
 
 
