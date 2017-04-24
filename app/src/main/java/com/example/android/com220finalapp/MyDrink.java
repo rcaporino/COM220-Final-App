@@ -1,4 +1,4 @@
-package com.example.android.com220drunkapp;
+package com.example.android.com220finalapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,14 +6,14 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-public class MainActivity extends AppCompatActivity {
+public class MyDrink extends AppCompatActivity {
 
     private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_my_drink);
     }
 
 //hangover remedies webview
