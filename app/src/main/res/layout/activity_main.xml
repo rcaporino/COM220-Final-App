@@ -1,18 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.android.com220drunkapp.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/settings"
+            android:layout_alignParentLeft="true"
+            android:padding="4dp"
+            android:src="@drawable/account"
+            android:scaleType="centerCrop"
+            android:onClick="accBtn"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true">
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:textSize="10sp"
+                android:text="Remedy"
+                android:onClick="remBtn"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:textSize="10sp"
+                android:text="Cheers"
+                android:onClick="cheersBtn"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:textSize="10sp"
+                android:text="Last Call"
+                android:onClick="lastCallBtn"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:textSize="7sp"
+                android:text="Emergency Contact"
+                android:onClick="eContactBtn"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:id="@+id/favorites"
+                android:src="@drawable/favorite_icon"
+                android:scaleType="centerCrop"
+                android:onClick="favBtn"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:id="@+id/statistics"
+                android:src="@drawable/stats_icon"
+                android:scaleType="centerCrop"
+                android:onClick="statBtn"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:id="@+id/calendar"
+                android:src="@drawable/calendar_icon"
+                android:scaleType="centerCrop"
+                android:onClick="calBtn"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="4dp"
+            android:textSize="9sp"
+            android:text="Share my Location"
+            android:onClick="locaBtn"/>
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="4dp"
+            android:textSize="9sp"
+            android:text="My Drunken Story"
+            android:onClick="stryBtn"/>
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="4dp"
+            android:textSize="8sp"
+            android:text="Water Reminder"
+            android:onClick="h20Btn"/>
+
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:padding="10dp"
+        android:progress="1"
+        android:max="3"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progressTint="#D50000"/>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:id="@+id/today"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:text="Today's Drinks"/>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="90dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"
+            android:text="Time"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="70dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="22sp"
+            android:textColor="@android:color/black"
+            android:text="Drink"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="4dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:id="@+id/listOfDrinks"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:text="5:00PM \t Jack and Coke
+            \n5:25PM \t Jack and Coke
+            \n6:15PM \t Jack and Coke"/>
+
+    </ScrollView>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:id="@+id/add"
+            android:src="@drawable/add_icon"
+            android:scaleType="centerCrop"
+            android:onClick="addBtn"/>
+
+        <ImageButton
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:id="@+id/refresh"
+            android:src="@drawable/change_icon"
+            android:scaleType="centerCrop"
+            android:onClick="changeBtn" />
+
+        <ViewSwitcher
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_toRightOf="@id/add"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:id="@+id/drink">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:padding="4dp"
+                android:src="@drawable/drink1_icon"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:padding="4dp"
+                android:src="@drawable/drink3_icon"
+                android:scaleType="centerCrop"/>
+
+        </ViewSwitcher>
+
+        <ImageButton
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="4dp"
+            android:id="@+id/food"
+            android:src="@drawable/food_icon"
+            android:scaleType="centerCrop"
+            android:onClick="foodBtn"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
