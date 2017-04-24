@@ -8,4 +8,40 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="RadioButton">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/sysGray</item>
+    </style>
+
+    <style name="TopViewBar">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+
+    <style name="BottomViewBar">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layout_marginTop">125dp</item>
+    </style>
+
+
+    <style name="Heading">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginTop">40dp</item>
+
+    </style>
+
+
+    <style name="CenterDividerViewBar">
+        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+
+
+
 </resources>
