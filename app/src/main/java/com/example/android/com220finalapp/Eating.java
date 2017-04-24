@@ -15,6 +15,7 @@ public class Eating extends AppCompatActivity {
         setContentView(R.layout.activity_eating) ;
     }
 
+
     public void save()
     {
         RadioGroup radioButtonGroup = (RadioGroup) findViewById(R.id.radiogroup);
