@@ -16,4 +16,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,CheersNoAsync.class);
         startActivity(intent);
     }
+
+    public void eatingIntentCall(View view){
+        startActivity(new Intent(this,Eating.class));
+    }
 }
