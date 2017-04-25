@@ -222,7 +222,7 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
 
                 }
             } else if (currentTime - lastTime > 3000) {
-                Log.i("BakerComplete", "Mission Completed at " + timeStamp + "Location: " + currentLatitude + " , " + currentLongitude);
+                Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
                 lastTime = currentTime;
             }
         }

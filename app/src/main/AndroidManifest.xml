@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.com220finalapp">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-feature android:name = "android.hardware.camera2" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name = "android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-feature android:name="android.hardware.location.gps" />
+<<<<<<< HEAD
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"/>
         <uses-feature android:name = "android.hardware.camera2" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+=======
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+>>>>>>> refs/remotes/rcaporino/master
 
     <application
         android:allowBackup="true"
@@ -16,23 +26,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name="com.example.android.com220finalapp.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 
         <activity android:name=".cameraclass"/>
 
+=======
+        <activity android:name=".cameraclass"></activity>
+>>>>>>> refs/remotes/rcaporino/master
         <activity
-            android:name="com.example.android.com220finalapp.CheersNoAsync"
+            android:name=".CheersNoAsync"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_cheers_no_async"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme"> </activity>
+        <activity android:name=".Eating"></activity>
     </application>
 
 </manifest>
