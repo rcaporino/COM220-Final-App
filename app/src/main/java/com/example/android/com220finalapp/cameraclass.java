@@ -12,11 +12,20 @@ import android.widget.ImageView;
 
 import com.example.android.com220finalapp.R;
 
+import java.io.File;
+
 import static android.R.attr.data;
 
 public class cameraclass extends AppCompatActivity {
 
     ImageView imageView;
+
+
+
+    private File dir, destImage,f;
+    private String cameraFile = null;
+
+    private static final int CAPTURE_FROM_CAMERA = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +49,7 @@ public class cameraclass extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         imageView.setImageBitmap(bitmap);
+
+
     }
 }
