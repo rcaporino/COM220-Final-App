@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void stryBtn(View view)
     {
-        //Intent intent = new Intent(MainActivity.this, FoodActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, cameraclass.class);
+        startActivity(intent);
     }
 
     public void h20Btn(View view)
