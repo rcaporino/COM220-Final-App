@@ -28,7 +28,7 @@
             android:name=".CheersNoAsync"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_cheers_no_async"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/FullscreenTheme"> </activity>
         <activity android:name=".Eating"></activity>
     </application>
 
