@@ -23,7 +23,7 @@ import android.view.View;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class CheersNoAsync extends AppCompatActivity implements SensorEventListener {
+public class Cheers extends AppCompatActivity implements SensorEventListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -91,12 +91,12 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cheers_no_async);
+        setContentView(R.layout.activity_cheers);
         reqPermissions();
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
         Log.i("BakerContext", "Setting Context");
-        mContext = CheersNoAsync.this;
+        mContext = Cheers.this;
         Log.i("BakerAccel", "Getting Accel");
         sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(accelerometer.TYPE_LINEAR_ACCELERATION);
