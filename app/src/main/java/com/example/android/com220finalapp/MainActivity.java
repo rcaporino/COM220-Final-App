@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.example.android.com220finalapp.R;
+import com.example.android.com220finalapp.cameraclass;
+
 public class MainActivity extends AppCompatActivity {
     private ViewSwitcher simpleViewSwitcher;
     ImageButton btnChange;
@@ -47,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+<<<<<<< HEAD
+    public void callCameraClass(View view)
+    {
+        Intent intent = new Intent(this, cameraclass.class);
+        startActivity(intent);
+    }
+
+=======
     public void cheersBtn(View view)
     {
         Intent intent = new Intent(MainActivity.this, CheersNoAsync.class);
@@ -113,5 +124,6 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(intent);
     }
 
+>>>>>>> refs/remotes/rcaporino/master
 }
 
