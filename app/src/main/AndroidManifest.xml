@@ -36,6 +36,8 @@
             android:theme="@style/FullscreenTheme"> </activity>
         <activity android:name=".Eating"></activity>
         <activity android:name=".LastCall"></activity>
+        <activity android:name=".FindFriends"></activity>
+        <activity android:name=".EmergencyContact"></activity>
     </application>
 
 </manifest>
