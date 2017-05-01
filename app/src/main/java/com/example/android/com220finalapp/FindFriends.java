@@ -37,8 +37,6 @@ public class FindFriends extends AppCompatActivity
     private double currentLat;
     private double currentLon;
 
-    //private String phonenum = "6319742629";
-
     private List<Friend> party = new ArrayList<Friend>(); //TODO load from file
 
     public boolean hasSMSPerms = false;
