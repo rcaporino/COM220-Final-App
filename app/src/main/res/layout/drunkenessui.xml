@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.com220finalapp.drunkeness"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Weight" />
+
+    <!--<Spinner-->
+    <!--android:id="@+id/gender"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:entries="@array/gender_choice">-->
+    <!--</Spinner>-->
+
+    <RadioGroup
+        android:id="@+id/gender_choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female" />
+    </RadioGroup>
+
+
+    <EditText
+        android:id="@+id/alcohol_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Drink's Alcohol Level in %" />
+
+    <EditText
+        android:id="@+id/ounces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Ounces in the drink"/>
+
+    <EditText
+        android:id="@+id/num_d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="number of drinks"/>
+
+    <EditText
+        android:id="@+id/hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Hours Drinking"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="start"
+        android:text="Add" />
+
+    <TextView
+        android:id="@+id/num_drink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of Drinks so far" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time since last drink" />
+
+    <TextView
+        android:id="@+id/highest_bac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Higest BAC so far" />
+
+    <TextView
+        android:id="@+id/current_bac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current BAC" />
+
+
+</LinearLayout>
