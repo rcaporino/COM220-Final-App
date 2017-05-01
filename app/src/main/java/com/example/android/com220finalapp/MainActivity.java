@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void lastCallBtn(View view)
     {
-        //Intent intent = new Intent(MainActivity.this, FoodActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, LastCall.class);
+        startActivity(intent);
     }
 
     public void foodBtn(View view)
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void cheersBtn(View view)
     {
-        Intent intent = new Intent(MainActivity.this, CheersNoAsync.class);
+        Intent intent = new Intent(MainActivity.this, Cheers.class);
         startActivity(intent);
     }
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void remBtn(View view)
     {
-        //Intent intent = new Intent(MainActivity.this, RemedyActivity.class);
+       // Intent intent = new Intent(MainActivity.this, Remedies.class);
         //startActivity(intent);
     }
 
@@ -107,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
         //Intent intent = new Intent(MainActivity.this, AddActivity.class);
         //startActivity(intent);
     }
-
+//TODO right now we have:
+    /*last call
+    food
+    cheers
+    econtact
+    story
+     */
 }
 

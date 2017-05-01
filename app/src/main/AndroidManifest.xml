@@ -30,11 +30,12 @@
         </activity>
         <activity android:name=".cameraclass"></activity>
         <activity
-            android:name=".CheersNoAsync"
+            android:name=".Cheers"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_cheers_no_async"
+            android:label="@string/title_activity_cheers"
             android:theme="@style/FullscreenTheme"> </activity>
         <activity android:name=".Eating"></activity>
+        <activity android:name=".LastCall"></activity>
     </application>
 
 </manifest>

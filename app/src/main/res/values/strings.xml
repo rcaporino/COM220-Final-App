@@ -5,5 +5,4 @@
     <string name="dummy_button">This Button Does Nothing :)</string>
     <string name="dummy_content">CHEERS ACTIVE</string>
 
-    <string name="title_activity_cheers_no_async">CheersNoAsync</string>
 </resources>

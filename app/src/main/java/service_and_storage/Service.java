@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 import service_and_storage.Meal.MealType;
 import service_and_storage.User.Gender;
@@ -142,10 +142,10 @@ public class Service
         this.dc.getDefaultDrinks().add(new Drink(name, sizeInOz, proof));
     }
     
-    public List<Drink> getFavDrinks()
+    /*public List<Drink> getFavDrinks()
     {
         Map<Drink, Integer> map = new HashMap<>();
-        
+
         this.dc.getDrinksConsumed().forEach((drink) ->
         {
             Integer count = map.get(drink);
@@ -154,8 +154,9 @@ public class Service
         
         return map.entrySet().stream().sorted(Collections.reverseOrder(
                 Map.Entry.comparingByValue())).limit(Service.NUM_OF_FAV_DRINKS).
-                map(Map.Entry::getKey).collect(Collectors.toList());        
-    }
+                map(Map.Entry::getKey).collect(Collectors.toList());
+
+    }*/
     
     public void saveData()
     {
