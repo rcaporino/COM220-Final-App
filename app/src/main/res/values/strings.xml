@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">COM220drunkapp</string>
+    <string name="app_name">COM220finalapp</string>
+
+    <string name="title_activity_cheers">Cheers</string>
+    <string name="dummy_button">This Button Does Nothing :)</string>
+    <string name="dummy_content">CHEERS ACTIVE</string>
+
+    <string name="title_activity_cheers_no_async">CheersNoAsync</string>
 </resources>

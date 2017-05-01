@@ -1,4 +1,4 @@
-package com.example.android.com220drunkapp;
+package com.example.android.com220finalapp;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.android.com220drunkapp;
+package com.example.android.com220finalapp;
 
 /**
  * Created by Matt on 4/10/2017.
