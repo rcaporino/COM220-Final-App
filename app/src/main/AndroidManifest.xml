@@ -38,6 +38,7 @@
         <activity android:name=".LastCall"></activity>
         <activity android:name=".FindFriends"></activity>
         <activity android:name=".EmergencyContact"></activity>
+        <activity android:name=".HangoverWebView"></activity>
     </application>
 
 </manifest>

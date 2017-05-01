@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void remBtn(View view)
     {
-       // Intent intent = new Intent(MainActivity.this, Remedies.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, HangoverWebView.class);
+        startActivity(intent);
     }
 
     public void accBtn(View view)
