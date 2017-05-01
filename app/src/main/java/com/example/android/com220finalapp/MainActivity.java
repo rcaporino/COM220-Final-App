@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void locaBtn(View view)
+    public void friendsBtn(View view)
     {
-        //Intent intent = new Intent(MainActivity.this, FoodActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, FindFriends.class);
+        startActivity(intent);
     }
 
     public void stryBtn(View view)
