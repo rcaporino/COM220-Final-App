@@ -53,7 +53,7 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
+private boolean done = false;
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -221,9 +221,10 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
 //TODO create an algorithm that gets the distance traveled forward and the distance traveled upward after
 
                 }
-            } else if (currentTime - lastTime > 3000) {
+            } else if (done==false) {
                 Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
                 lastTime = currentTime;
+                done = true;
             }
         }
 //TODO figure out how to have the thing listen for the boolean change
