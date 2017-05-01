@@ -8,4 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send your Location to All in Party" />
+    <Button
+        android:id="@+id/contactButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="pickContact"
+        android:text="Add Contacts to Your Party" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/partyList"/>
 </LinearLayout>

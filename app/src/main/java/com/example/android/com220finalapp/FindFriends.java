@@ -2,19 +2,29 @@ package com.example.android.com220finalapp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by Friedrich on 4/29/2017.
@@ -27,15 +37,21 @@ public class FindFriends extends AppCompatActivity
     private double currentLat;
     private double currentLon;
 
-    private String phonenum = "6319742629";
+    //private String phonenum = "6319742629";
+
+    private List<Friend> party = new ArrayList<Friend>(); //TODO load from file
 
     public boolean hasSMSPerms = false;
     public boolean hasLocPerms = false;
+    public boolean hasContactPerms = false;
 
+    private static final int RESULT_PICK_CONTACT = 8550;
 
     static String beginning = "http://maps.google.com/maps";
 
+    ArrayAdapter<String> arrayAdapter;
 
+    ListView partyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +64,12 @@ public class FindFriends extends AppCompatActivity
         {
             FindLocation();
         }
+
+        partyList = (ListView) findViewById(R.id.partyList);
+
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , (List) party);
+
+        partyList.setAdapter(arrayAdapter);
 
         final Button smsBtn = (Button) findViewById(R.id.smsButton);
         smsBtn.setOnClickListener(new View.OnClickListener()
@@ -67,6 +89,68 @@ public class FindFriends extends AppCompatActivity
 
     }
 
+    public void pickContact(View v)
+    {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // check whether the result is ok
+        if (resultCode == RESULT_OK) {
+            // Check for the request code, we might be usign multiple startActivityForReslut
+            switch (requestCode) {
+                case RESULT_PICK_CONTACT:
+                    contactPicked(data);
+                    break;
+            }
+        } else {
+            Log.e("MainActivity", "Failed to pick contact");
+        }
+    }
+    /**
+     * Query the Uri and read contact details. Handle the picked contact data.
+     * @param data
+     */
+    private void contactPicked(Intent data) {
+        Cursor cursor = null;
+        try {
+            String phoneNo = null ;
+            String name = null;
+            // getData() method will have the Content Uri of the selected contact
+            Uri uri = data.getData();
+            //Query the content uri
+            cursor = getContentResolver().query(uri, null, null, null, null);
+            cursor.moveToFirst();
+            // column index of the phone number
+            int  phoneIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            // column index of the contact name
+            int  nameIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            phoneNo = cursor.getString(phoneIndex);
+            name = cursor.getString(nameIndex);
+            // Set the value to the textviews
+            String str = "";
+            for(int i = 0; i < phoneNo.length(); i++)
+            {
+                if(phoneNo.charAt(i) >='0' && phoneNo.charAt(i) <='9')
+                {
+                    str += phoneNo.charAt(i);
+                }
+            }
+
+            Friend frnd = new Friend(name, str);
+            Log.d("SiggiTest", frnd.toString());
+            party.add(frnd);
+
+            arrayAdapter.notifyDataSetChanged();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void sendSMSToFriends()
     {
         //TODO get friend's list
@@ -75,7 +159,11 @@ public class FindFriends extends AppCompatActivity
         //the new schema doesnt work right
         //smsManager.sendTextMessage("+1" + phonenum, null, "Hey, I'm at this location: " + formURL("dir", currentLat, currentLon, 9 ), null, null);
         //old schema
-        smsManager.sendTextMessage("+1" + phonenum, null, "Hey, I'm at this location: " + formURL("dir", currentLat, currentLon, 9 ), null, null);
+        for (Friend frnd : party)
+        {
+            smsManager.sendTextMessage("+" + frnd.getNum(), null, "Hey, " + frnd.getName() + ", I'm at this location: " + formURL("dir", currentLat, currentLon, 9 ), null, null);
+        }
+
 
     }
 
@@ -116,6 +204,16 @@ public class FindFriends extends AppCompatActivity
             Log.d("SiggiReq", "Has SMS Permissions");
             this.hasSMSPerms = true;
         }
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
+        {
+            Log.d("SiggiReq", "Requesting Contact Read Permissions");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 7 /*TODO get a real request code.  any number may not work*/);
+        }
+        else
+        {
+            Log.d("SiggiReq", "Has Contact Read Permissions");
+            this.hasContactPerms = true;
+        }
     }
 
     @Override
@@ -127,6 +225,22 @@ public class FindFriends extends AppCompatActivity
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("PERMISSIONS", "SMS permission granted");
                     this.hasSMSPerms = true;
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            case 7:{
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("PERMISSIONS", "Contact Read permission granted");
+                    this.hasContactPerms = true;
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 
@@ -206,6 +320,40 @@ public class FindFriends extends AppCompatActivity
         }
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
+    }
+
+    public class Friend
+    {
+        private String name;
+        private String num;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getNum() {
+            return num;
+        }
+
+        public void setNum(String num) {
+            this.num = num;
+        }
+
+        private Friend(String name, String num)
+        {
+            this.name = name;
+            this.num = num;
+        }
+
+        @Override
+        public String toString() {
+            return this.name + ": " + this.num;
+        }
 
     }
 }
