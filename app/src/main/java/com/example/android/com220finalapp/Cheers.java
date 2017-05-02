@@ -110,7 +110,7 @@ private boolean done = false;
 
         //TODO put the pairing notification to the server here with the time.
         if(hasLocPerms)
-            FindLocation();
+            findLocation();
     }
 
     @Override
@@ -119,7 +119,7 @@ private boolean done = false;
     }
 
 
-    public void FindLocation() {
+    public void findLocation() {
 
         locationManager = (LocationManager) this
                 .getSystemService(Context.LOCATION_SERVICE);
