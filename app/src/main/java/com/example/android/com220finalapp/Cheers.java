@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -53,7 +54,7 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
+private boolean done = false;
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -79,6 +80,7 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
         }
     };
     private View mControlsView;
+    TextView cheersText;
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -94,7 +96,8 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
         setContentView(R.layout.activity_cheers);
         reqPermissions();
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
+        mContentView = findViewById(R.id.cheersMainText);
+        cheersText = (TextView) findViewById(R.id.cheersMainText);
         Log.i("BakerContext", "Setting Context");
         mContext = Cheers.this;
         Log.i("BakerAccel", "Getting Accel");
@@ -221,9 +224,11 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
 //TODO create an algorithm that gets the distance traveled forward and the distance traveled upward after
 
                 }
-            } else if (currentTime - lastTime > 3000) {
+            } else if (done==false) {
                 Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
+                cheersText.setText("Cheers Complete at: \n"+timeStamp+"\n"+"Location: "+"\n"+currentLatitude+" , "+currentLongitude);
                 lastTime = currentTime;
+                done = true;
             }
         }
 //TODO figure out how to have the thing listen for the boolean change
