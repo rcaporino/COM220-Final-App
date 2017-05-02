@@ -103,4 +103,10 @@ public class Drink implements Serializable
         hash = 29 * hash + Objects.hashCode(this.name);
         return hash;
     }
+    
+    @Override
+    public String toString()
+    {
+        return this.getName();
+    }
 }
