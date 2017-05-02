@@ -4,9 +4,12 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-feature android:name = "android.hardware.camera2" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name = "android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-feature android:name="android.hardware.camera2" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
@@ -26,13 +29,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".cameraclass"></activity>
+        <activity android:name=".cameraclass" />
         <activity
             android:name=".CheersNoAsync"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_cheers_no_async"
-            android:theme="@style/FullscreenTheme"> </activity>
-        <activity android:name=".Eating"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".Eating" />
+        <activity android:name=".Accsetupact" />
     </application>
 
 </manifest>
