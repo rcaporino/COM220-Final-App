@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,6 +170,9 @@ public class FindFriends extends AppCompatActivity
         {
             smsManager.sendTextMessage("+" + frnd.getNum(), null, "Hey, " + frnd.getName() + ", I'm at this location: " + formURL("dir", currentLat, currentLon, 9 ), null, null);
         }
+
+        Toast toast = Toast.makeText(this, "SMS message sent to party", Toast.LENGTH_LONG);
+        toast.show();
 
 
     }
