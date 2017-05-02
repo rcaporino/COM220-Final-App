@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -136,6 +137,13 @@ public class FindFriends extends AppCompatActivity
                 {
                     str += phoneNo.charAt(i);
                 }
+            }
+            if(str.length() < 11) //defaults to us
+            {
+                TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                String countryCode = tm.getSimCountryIso();
+                str = countryCode + str;
+
             }
 
             Friend frnd = new Friend(name, str);
