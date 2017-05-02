@@ -301,4 +301,11 @@ cheersText.setText("Loading Location \n");
         }
     }
 
+    public void restart(View view){
+        done=false;
+        forwardSuccessful=false;
+        stoppedSuccessful=false;
+        upwardSuccessful=false;
+    }
+
 }
