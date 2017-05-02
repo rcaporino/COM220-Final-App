@@ -4,9 +4,13 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-feature android:name = "android.hardware.camera2" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name = "android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name = "android.permission.INTERNET"/>
+    <uses-permission android:name = "android.permission.set_ALARM"/>
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
@@ -28,11 +32,15 @@
         </activity>
         <activity android:name=".cameraclass"></activity>
         <activity
-            android:name=".CheersNoAsync"
+            android:name=".Cheers"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_cheers_no_async"
+            android:label="@string/title_activity_cheers"
             android:theme="@style/FullscreenTheme"> </activity>
         <activity android:name=".Eating"></activity>
+        <activity android:name=".LastCall"></activity>
+        <activity android:name=".FindFriends"></activity>
+        <activity android:name=".EmergencyContact"></activity>
+        <activity android:name=".HangoverWebView"></activity>
     </application>
 
 </manifest>

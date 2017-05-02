@@ -1,17 +1,19 @@
 package service_and_storage;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import service_and_storage.Meal.MealType;
 import service_and_storage.User.Gender;
 
 public class Service
 {
-    private static final int NUM_OF_FAV_DRINKS = 5;
+    private static final int FAV_DRINK_START_INDEX = 0;
+    private static final int FAV_DRINK_END_INDEX = 4;
     
     private DataCollection dc;
     
@@ -146,15 +148,32 @@ public class Service
     {
         Map<Drink, Integer> map = new HashMap<>();
         
-        this.dc.getDrinksConsumed().forEach((drink) ->
+        for(Drink drink : this.dc.getDrinksConsumed())
         {
             Integer count = map.get(drink);
             map.put(drink, (count == null) ? 1 : count + 1);
+        }
+        
+        List<Map.Entry<Drink, Integer>> list = new LinkedList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Drink, Integer>>()
+        {
+
+            @Override
+            public int compare(Map.Entry<Drink, Integer> o1,
+                    Map.Entry<Drink, Integer> o2) {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
         });
         
-        return map.entrySet().stream().sorted(Collections.reverseOrder(
-                Map.Entry.comparingByValue())).limit(Service.NUM_OF_FAV_DRINKS).
-                map(Map.Entry::getKey).collect(Collectors.toList());        
+        List<Drink> result = new LinkedList<>();
+        
+        for(Map.Entry<Drink, Integer> entry : list)
+        {
+            result.add(entry.getKey());
+        }
+        
+        return result.subList(Service.FAV_DRINK_START_INDEX,
+                Service.FAV_DRINK_END_INDEX);
     }
     
     public void saveData()
@@ -165,5 +184,15 @@ public class Service
     public void loadData()
     {
         this.dc = DataStorage.loadData();
+    }
+    
+    public void saveDefaultDrinks()
+    {
+        DataStorage.saveDefaultDrinks(this.dc.getDefaultDrinks());
+    }
+    
+    public void loadDefaultDrinks()
+    {
+        this.dc.setDefaultDrinks(DataStorage.loadDefaultDrinks());
     }
 }
