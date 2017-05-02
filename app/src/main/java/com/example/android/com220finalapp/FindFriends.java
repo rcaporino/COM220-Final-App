@@ -337,6 +337,9 @@ public class FindFriends extends AppCompatActivity
     public class Friend implements Serializable
     {
         private String name;
+        /**
+         * Should be in the format "12225551234", as that's what the SMSManager takes
+         */
         private String num;
 
         public String getName() {
