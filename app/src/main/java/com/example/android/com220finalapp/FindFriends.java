@@ -16,12 +16,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -137,6 +140,13 @@ public class FindFriends extends AppCompatActivity
                     str += phoneNo.charAt(i);
                 }
             }
+            if(str.length() < 11) //defaults to us
+            {
+                TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                String countryCode = tm.getSimCountryIso();
+                str = countryCode + str;
+
+            }
 
             Friend frnd = new Friend(name, str);
             Log.d("SiggiTest", frnd.toString());
@@ -161,6 +171,9 @@ public class FindFriends extends AppCompatActivity
         {
             smsManager.sendTextMessage("+" + frnd.getNum(), null, "Hey, " + frnd.getName() + ", I'm at this location: " + formURL("dir", currentLat, currentLon, 9 ), null, null);
         }
+
+        Toast toast = Toast.makeText(this, "SMS message sent to party", Toast.LENGTH_LONG);
+        toast.show();
 
 
     }
@@ -321,9 +334,12 @@ public class FindFriends extends AppCompatActivity
 
     }
 
-    public class Friend
+    public class Friend implements Serializable
     {
         private String name;
+        /**
+         * Should be in the format "12225551234", as that's what the SMSManager takes
+         */
         private String num;
 
         public String getName() {
