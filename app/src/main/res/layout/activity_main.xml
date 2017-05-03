@@ -108,7 +108,7 @@
             android:layout_height="50dp"
             android:padding="4dp"
             android:textSize="9sp"
-            android:text="My Drunken Story"
+            android:text="My Story"
             android:onClick="stryBtn"/>
 
         <Button

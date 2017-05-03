@@ -37,7 +37,6 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private final float THRESHOLD = (float) 1;
-    private Context mContext;
     private float x = 0, y = 0;
     private float lastX = 0, lastY = 0;
     private float xSpeed = (float) (THRESHOLD + 0.000000001);
@@ -50,6 +49,7 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
     private boolean upwardSuccessful = false;
     LocationManager locationManager;
     LocationListener locationListener;
+    private boolean hasLocPerms = false;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -97,37 +97,36 @@ private boolean done = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheers);
         reqPermissions();
+
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.cheersMainText);
         cheersText = (TextView) findViewById(R.id.cheersMainText);
         Log.i("BakerContext", "Setting Context");
-        mContext = Cheers.this;
         Log.i("BakerAccel", "Getting Accel");
-        sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(accelerometer.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         Log.i("BakerAccel", "Accel set up.");
 
-FindLocation();
         //TODO put the pairing notification to the server here with the time.
-
+        if(hasLocPerms)
+            findLocation();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-
     }
 
 
-    public void FindLocation() {
+    public void findLocation() {
 
         locationManager = (LocationManager) this
                 .getSystemService(Context.LOCATION_SERVICE);
 
-        locationListener = new LocationListener() {
+        LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
+                Log.i("BAKERLOC","Location changed");
                 updateLocation(location);
             }
 
@@ -144,8 +143,8 @@ FindLocation();
         };
 
         if (Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("BakerDeny", "Didn't have permissions");
             return;
         }
@@ -159,7 +158,7 @@ FindLocation();
     }
 
 
-    void updateLocation(Location location) {
+    public void updateLocation(Location location) {
         currentLocation = location;
         currentLatitude = currentLocation.getLatitude();
         currentLongitude = currentLocation.getLongitude();
@@ -182,74 +181,83 @@ FindLocation();
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if (currentLatitude == 0.0) {
+cheersText.setText("Loading Location \n");
+        } else {
+            accelerometer = event.sensor;
+            if (accelerometer.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
+                //stores the x and y acceleration.
 
-        accelerometer = event.sensor;
-        if (accelerometer.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
-            //stores the x and y acceleration.
+                currentTime = System.currentTimeMillis();
+                if (!upwardSuccessful) {
+                    if (currentTime - lastTime > 5) {
+                        cheersText.setText("Cheers Active");
+                        if (event.values[0] > THRESHOLD) {
+                            x = event.values[0];
 
-            currentTime = System.currentTimeMillis();
-            if (!upwardSuccessful) {
-                if (currentTime - lastTime > 5) {
-                    if (event.values[0] > THRESHOLD) {
-                        x = event.values[0];
+                        }
+                        if (event.values[1] > THRESHOLD) {
+                            y = event.values[1];
+                        }
+
+                        differenceInTime = currentTime - lastTime;
+
+                        xSpeed = Math.abs(x - lastX) / differenceInTime * 100;
+                        ySpeed = Math.abs(y - lastY) / differenceInTime * 100;
+                        Log.i("BakerAccel", "X Speed:" + xSpeed);
+                        Log.i("BakerAccel", "Y Speed:" + ySpeed);
+                        if (xSpeed >= 1 && !stoppedSuccessful && !upwardSuccessful) {
+                            forwardSuccessful = true;
+                            Log.i("BakerAccel", "Went forward");
+                        }
+                        if (!upwardSuccessful && forwardSuccessful && xSpeed <= THRESHOLD) {
+                            stoppedSuccessful = true;
+                            Log.i("BakerAccel", "Stopped");
+                        }
+                        if (forwardSuccessful && stoppedSuccessful && event.values[1] >= 1) {
+                            upwardSuccessful = true;
+                            Log.i("BakerAccel", "Went upward");
+                            timeStamp = System.currentTimeMillis();
+                        }
+                        //the above checks that you went forward, then stopped, then went upward.
+                        lastTime = currentTime;
+                        lastX = x;
+                        lastY = y;
+
 
                     }
-                    if (event.values[1] > THRESHOLD) {
-                        y = event.values[1];
-                    }
-
-                    differenceInTime = currentTime - lastTime;
-
-                    xSpeed = Math.abs(x - lastX) / differenceInTime * 100;
-                    ySpeed = Math.abs(y - lastY) / differenceInTime * 100;
-                    Log.i("BakerAccel", "X Speed:" + xSpeed);
-                    Log.i("BakerAccel", "Y Speed:" + ySpeed);
-                    if (xSpeed >= 1 && !stoppedSuccessful && !upwardSuccessful) {
-                        forwardSuccessful = true;
-                        Log.i("BakerAccel", "Went forward");
-                    }
-                    if (!upwardSuccessful && forwardSuccessful && xSpeed <= THRESHOLD) {
-                        stoppedSuccessful = true;
-                        Log.i("BakerAccel", "Stopped");
-                    }
-                    if (forwardSuccessful && stoppedSuccessful && event.values[1] >= 1) {
-                        upwardSuccessful = true;
-                        Log.i("BakerAccel", "Went upward");
-                        timeStamp = System.currentTimeMillis();
-                    }
-                    //the above checks that you went forward, then stopped, then went upward.
+                } else if (done == false) {
+                    Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
+                    cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
                     lastTime = currentTime;
-                    lastX = x;
-                    lastY = y;
-
-//TODO create an algorithm that gets the distance traveled forward and the distance traveled upward after
-
+                    done = true;
                 }
-            } else if (done==false) {
-                Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
-                cheersText.setText("Cheers Complete at: \n"+timeStamp+"\n"+"Location: "+"\n"+currentLatitude+" , "+currentLongitude);
-                lastTime = currentTime;
-                done = true;
             }
         }
-//TODO figure out how to have the thing listen for the boolean change
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    //TODO figure out how to find the time on the device with a lower API requirement (not 24)
     public void reqPermissions() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("BakerReq", "Requesting Coarse Permissions");
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1 /*TODO get a real request code.  any number may not work*/);
+                    1);
+        }        else
+        {
+            Log.i("BakerReq", "Has Coarse Location Permissions");
+            this.hasLocPerms = true;
         }
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("BakerReq", "Requesting Fine Permissions");
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    2 /*TODO get a real request code.  any number may not work*/);
+                    2);
+        }     else
+        {
+            Log.i("BakerReq", "Has Fine Location Permissions");
+            this.hasLocPerms = true;
         }
     }
 
@@ -261,7 +269,7 @@ FindLocation();
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    FindLocation();
+                    hasLocPerms = true;
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 
@@ -276,7 +284,7 @@ FindLocation();
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    FindLocation();
+                    hasLocPerms = true;
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 
@@ -291,6 +299,13 @@ FindLocation();
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    public void restart(View view){
+        done=false;
+        forwardSuccessful=false;
+        stoppedSuccessful=false;
+        upwardSuccessful=false;
     }
 
 }
