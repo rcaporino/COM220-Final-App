@@ -48,6 +48,8 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
     private boolean forwardSuccessful = false;
     private boolean stoppedSuccessful = false;
     private boolean upwardSuccessful = false;
+    LocationManager locationManager;
+    LocationListener locationListener;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -106,9 +108,8 @@ private boolean done = false;
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         Log.i("BakerAccel", "Accel set up.");
 
-
+FindLocation();
         //TODO put the pairing notification to the server here with the time.
-        FindLocation();
 
     }
 
@@ -122,10 +123,10 @@ private boolean done = false;
 
     public void FindLocation() {
 
-        LocationManager locationManager = (LocationManager) this
+        locationManager = (LocationManager) this
                 .getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new LocationListener() {
+        locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 updateLocation(location);
             }

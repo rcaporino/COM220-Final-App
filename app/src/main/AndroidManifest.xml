@@ -11,6 +11,7 @@
     <uses-permission android:name = "android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name = "android.permission.INTERNET"/>
     <uses-permission android:name = "android.permission.set_ALARM"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
@@ -41,6 +42,7 @@
         <activity android:name=".FindFriends"></activity>
         <activity android:name=".EmergencyContact"></activity>
         <activity android:name=".HangoverWebView"></activity>
+
     </application>
 
 </manifest>
