@@ -15,7 +15,6 @@ public class Drunkeness extends AppCompatActivity {
         setContentView(R.layout.drunkenessui);
     }
 
-
     DataCollection data = new DataCollection();
 
     /**

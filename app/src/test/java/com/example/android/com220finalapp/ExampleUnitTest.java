@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest
 {
+
     @Test
     public void setBloodAlcoholTest_success()
     {
