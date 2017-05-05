@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -47,6 +48,7 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
     private boolean forwardSuccessful = false;
     private boolean stoppedSuccessful = false;
     private boolean upwardSuccessful = false;
+    private boolean confirmedDirections = false;
     LocationManager locationManager;
     LocationListener locationListener;
     private boolean hasLocPerms = false;
@@ -83,6 +85,7 @@ private boolean done = false;
     };
     private View mControlsView;
     TextView cheersText;
+    Button cheersButton;
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -101,6 +104,7 @@ private boolean done = false;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.cheersMainText);
         cheersText = (TextView) findViewById(R.id.cheersMainText);
+        cheersButton = (Button) findViewById(R.id.cheers_button);
         Log.i("BakerContext", "Setting Context");
         Log.i("BakerAccel", "Getting Accel");
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
@@ -190,8 +194,17 @@ cheersText.setText("Loading Location \n");
 
                 currentTime = System.currentTimeMillis();
                 if (!upwardSuccessful) {
+                    if(confirmedDirections == false) {
+                        cheersText.setTextSize(20);
+                        cheersText.setText("Instructions: \n\n" +
+                                "At the same time, thrust your phones forward, bump knuckles, and up toward the sky!\n\n" +
+                                "Push the button when ready!");
+                        cheersButton.setText("Go!");
+                    } else{
                     if (currentTime - lastTime > 5) {
-                        cheersText.setText("Cheers Active");
+
+                        cheersText.setTextSize(40);
+                        cheersText.setText("Go!\nCheers mate!\n");
                         if (event.values[0] > THRESHOLD) {
                             x = event.values[0];
 
@@ -226,11 +239,14 @@ cheersText.setText("Loading Location \n");
 
 
                     }
+                    }
                 } else if (done == false) {
                     Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
+                    cheersText.setTextSize(20);
                     cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
                     lastTime = currentTime;
                     done = true;
+                    cheersButton.setText("Restart");
                 }
             }
         }
@@ -301,11 +317,22 @@ cheersText.setText("Loading Location \n");
         }
     }
 
-    public void restart(View view){
-        done=false;
-        forwardSuccessful=false;
-        stoppedSuccessful=false;
-        upwardSuccessful=false;
+    public void buttonPress(View view){
+        if(confirmedDirections==true && currentLatitude!=0.0) {
+            done = false;
+            forwardSuccessful = false;
+            stoppedSuccessful = false;
+            upwardSuccessful = false;
+            cheersText.setTextSize(20);
+            cheersText.setText("Instructions: \n\n" +
+                    "At the same time, thrust your phones forward, bump knuckles, and up toward the sky!\n\n" +
+                    "Push the button when ready!");
+            cheersButton.setText("Restart");
+            confirmedDirections=false;
+        } else {
+confirmedDirections =true;
+            cheersButton.setText("Restart");
+        }
     }
 
 }

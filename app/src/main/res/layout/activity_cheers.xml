@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/purple"
     tools:context="com.example.android.com220finalapp.Cheers">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -12,12 +12,20 @@
         android:id="@+id/cheersMainText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="60dp"
         android:keepScreenOn="true"
         android:text="@string/cheers_start"
-        android:background="#FFFFFF"
+        android:background="@color/purple"
+        android:textColor="#FFFFFF"
         style="@style/Heading"/>
-
+<ImageView
+    android:id="@+id/cheersBG"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:src="@drawable/cheers_background_four"
+    />
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
     <FrameLayout
@@ -31,17 +39,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
+            android:background="@color/purple"
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
             <Button
                 android:id="@+id/cheers_button"
-                style="@style/RadioButton"
+                style="@style/Buttonstyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="restart"
+                android:onClick="buttonPress"
                 android:text="@string/cheers_button" />
 
         </LinearLayout>

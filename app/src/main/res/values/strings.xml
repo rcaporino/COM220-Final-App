@@ -2,7 +2,7 @@
     <string name="app_name">Drive Dry</string>
 
     <string name="title_activity_cheers">Cheers</string>
-    <string name="cheers_button">Restart</string>
+    <string name="cheers_button">Please Wait</string>
     <string name="cheers_start">CHEERS ACTIVE</string>
 
 </resources>
