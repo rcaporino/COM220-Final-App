@@ -203,7 +203,8 @@ cheersText.setText("Loading Location \n");
                     } else{
                     if (currentTime - lastTime > 5) {
 
-                        cheersText.setText("Go!  Cheers mate!");
+                        cheersText.setTextSize(40);
+                        cheersText.setText("Go!\nCheers mate!\n");
                         if (event.values[0] > THRESHOLD) {
                             x = event.values[0];
 
@@ -241,6 +242,7 @@ cheersText.setText("Loading Location \n");
                     }
                 } else if (done == false) {
                     Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
+                    cheersText.setTextSize(20);
                     cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
                     lastTime = currentTime;
                     done = true;
@@ -321,6 +323,7 @@ cheersText.setText("Loading Location \n");
             forwardSuccessful = false;
             stoppedSuccessful = false;
             upwardSuccessful = false;
+            cheersText.setTextSize(20);
             cheersText.setText("Instructions: \n\n" +
                     "At the same time, thrust your phones forward, bump knuckles, and up toward the sky!\n\n" +
                     "Push the button when ready!");
