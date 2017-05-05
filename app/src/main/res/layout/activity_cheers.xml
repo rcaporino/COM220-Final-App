@@ -37,7 +37,7 @@
 
             <Button
                 android:id="@+id/cheers_button"
-                style="@style/RadioButton"
+                style="@style/Buttonstyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
