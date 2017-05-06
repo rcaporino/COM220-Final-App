@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".cameraclass"
-    android:orientation="vertical"
-    android:weightSum="10"
-    >
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_margin="16dp"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_weight="9"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click the below button to take photo from camera and display it in image view"/>
 
     <Button
-        android:id="@+id/btnCamera"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
+        android:id="@+id/take_image_from_camera"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="takeImageFromCamera"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
-        android:textColor="@android:color/white"
-        android:text="OPEN CAMERA"/>
+        android:text="Take Photo From Camera"/>
+
+    <ImageView
+        android:id="@+id/image_from_camera"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"/>
 
 
 </LinearLayout>
+
+    <!-- ADD THIS TAG INSIDE OF THE APPLICATION TAG IN THE MANIFEST
+       <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.com220finalapp.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+    -->
