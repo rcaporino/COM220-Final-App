@@ -44,7 +44,7 @@ public class cameraclass extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera);
 
-        mimageView = (ImageView) this.findViewById(R.id.image_from_camera);
+        mimageView = (ImageView) findViewById(R.id.image_from_camera);
 
 
         // Here, we are making a folder named picFolder to store
