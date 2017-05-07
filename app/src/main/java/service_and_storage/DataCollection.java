@@ -15,7 +15,7 @@ public class DataCollection implements Serializable
     
     public DataCollection()
     {
-        this.user = null;
+        this.user = new User();
         this.drinksConsumed = new LinkedList<>();
         this.defaultDrinks = new LinkedList<>();
         this.cheersFriends = new LinkedList<>();
