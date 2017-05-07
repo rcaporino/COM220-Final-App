@@ -26,12 +26,12 @@ public class Accsetupact extends AppCompatActivity {
         String sWight = Wight.getText().toString();
         double WightValue = Double.parseDouble(sWight);
         RadioButton M = (RadioButton) findViewById(R.id.rbMale);
-       boolean men=  M.isChecked();
+        boolean men = M.isChecked();
         RadioButton F = (RadioButton) findViewById(R.id.rbFemale);
-       boolean fmen= F.isChecked();
-        if (men== true)
+        boolean fmen = F.isChecked();
+        if (men)
             ImMAle = Boolean.TRUE;
-        if (fmen==true)
+        if (fmen)
             ImFemale = Boolean.TRUE;
 
 

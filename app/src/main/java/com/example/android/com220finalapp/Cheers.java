@@ -18,12 +18,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class CheersNoAsync extends AppCompatActivity implements SensorEventListener {
+public class Cheers extends AppCompatActivity implements SensorEventListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -47,13 +48,15 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     private boolean forwardSuccessful = false;
     private boolean stoppedSuccessful = false;
     private boolean upwardSuccessful = false;
+    LocationManager locationManager;
+    LocationListener locationListener;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
+private boolean done = false;
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -79,6 +82,7 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
         }
     };
     private View mControlsView;
+    TextView cheersText;
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -91,21 +95,21 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cheers_no_async);
+        setContentView(R.layout.activity_cheers);
         reqPermissions();
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
+        mContentView = findViewById(R.id.cheersMainText);
+        cheersText = (TextView) findViewById(R.id.cheersMainText);
         Log.i("BakerContext", "Setting Context");
-        mContext = CheersNoAsync.this;
+        mContext = Cheers.this;
         Log.i("BakerAccel", "Getting Accel");
         sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(accelerometer.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         Log.i("BakerAccel", "Accel set up.");
 
-
+FindLocation();
         //TODO put the pairing notification to the server here with the time.
-        FindLocation();
 
     }
 
@@ -119,10 +123,10 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
 
     public void FindLocation() {
 
-        LocationManager locationManager = (LocationManager) this
+        locationManager = (LocationManager) this
                 .getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new LocationListener() {
+        locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 updateLocation(location);
             }
@@ -221,9 +225,11 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
 //TODO create an algorithm that gets the distance traveled forward and the distance traveled upward after
 
                 }
-            } else if (currentTime - lastTime > 3000) {
+            } else if (done==false) {
                 Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
+                cheersText.setText("Cheers Complete at: \n"+timeStamp+"\n"+"Location: "+"\n"+currentLatitude+" , "+currentLongitude);
                 lastTime = currentTime;
+                done = true;
             }
         }
 //TODO figure out how to have the thing listen for the boolean change
