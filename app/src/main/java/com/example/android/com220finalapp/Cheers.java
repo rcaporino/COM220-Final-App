@@ -21,6 +21,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import service_and_storage.Friend;
+import service_and_storage.Service;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -315,6 +318,17 @@ cheersText.setText("Loading Location \n");
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    public void confirmFriend(){
+
+    }
+    public void addFriend(String name, String num){
+        Friend f = new Friend();
+        f.setName(name);
+        f.setNum(num);
+        Service s = new Service();
+        s.addCheersFriend(f);
     }
 
     public void buttonPress(View view){

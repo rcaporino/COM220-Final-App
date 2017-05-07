@@ -18,13 +18,17 @@
         android:text="@string/cheers_start"
         android:background="@color/purple"
         android:textColor="#FFFFFF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowColor="#000000"
+        android:shadowRadius="60"
         style="@style/Heading"/>
 <ImageView
     android:id="@+id/cheersBG"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:src="@drawable/cheers_background_four"
+    android:src="@drawable/cheers_background_edited2"
     />
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
