@@ -128,7 +128,7 @@ public class Service
     }
         
     public void addConsumedDrink(String name, double sizeInOz,
-            double proof, int timeDrank)
+            double proof, long timeDrank)
     {
         this.dc.getDrinksConsumed().add(new Drink(name, sizeInOz,
                 proof, timeDrank));
@@ -142,6 +142,26 @@ public class Service
     public void addDefaultDrink(String name, double sizeInOz, double proof)
     {
         this.dc.getDefaultDrinks().add(new Drink(name, sizeInOz, proof));
+    }
+    
+    public List<Friend> getCheersFriends()
+    {
+        return this.dc.getCheersFriends();
+    }
+    
+    public void addCheersFriend(Friend friend)
+    {
+        this.dc.getCheersFriends().add(friend);
+    }
+    
+    public List<Friend> getEmergencyContacts()
+    {
+        return this.dc.getEmergencyContacts();
+    }
+    
+    public void addEmergencyContact(Friend friend)
+    {
+        this.dc.getEmergencyContacts().add(friend);
     }
     
     public List<Drink> getFavDrinks()
