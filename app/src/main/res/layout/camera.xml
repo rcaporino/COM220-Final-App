@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#5B1566"
     android:gravity="center_horizontal"
-    android:layout_margin="16dp"
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click the below button to take photo from camera and display it in image view"/>
-
-    <Button
-        android:id="@+id/take_image_from_camera"
-        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        android:textStyle="bold"
         android:layout_marginTop="10dp"
-        android:onClick="takeImageFromCamera"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take Photo From Camera"/>
+        android:textColor="#FFFFFF"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        android:text="Show all your new Cheers friends what you're drinking or where you are!" />
+
 
     <ImageView
         android:id="@+id/image_from_camera"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:layout_marginTop="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/take_image_from_camera"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:onClick="takeImageFromCamera"
+            android:layout_height="wrap_content"
+            android:background="#9423A6"
+            android:textColor="#FFFFFF"
+            android:text="Open the Camera" />
+    </RelativeLayout>
+
+
+    <!-- <android.support.v4.view.ViewPager
+         android:id="@+id/viewPageAndroid"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent" /> ALSO PART OF THE NOT WORKING IMAGE SLIDER-->
 
 
 </LinearLayout>
