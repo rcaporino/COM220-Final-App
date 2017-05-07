@@ -4,19 +4,29 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
+android:paddingLeft="16dp"
+android:paddingRight="16dp"
+android:paddingTop="16dp"
+android:paddingBottom="16dp"
 android:orientation="vertical"
 tools:context="com.example.android.com220finalapp.Eating">
 
-<TextView
-    android:id="@+id/caltitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:text="How big was your last meal?"
-    android:textSize="26sp" />
-<RadioGroup
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/TopViewBar"
+        />
+
+    <TextView
+        android:id="@+id/caltitle"
+        style="@style/Heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:text="How big was your last meal?" />
+
+    <RadioGroup
     android:id="@+id/radiogroup"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -26,31 +36,42 @@ tools:context="com.example.android.com220finalapp.Eating">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Large (600+ calories)"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textColor="@color/sysGray"
+        />
     <RadioButton
         android:id="@+id/mediummeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Normal (250 - 600 calories)"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textColor="@color/sysGray"/>
     <RadioButton
         android:id="@+id/smallmeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Small (below 250 calories)"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textColor="@color/sysGray"/>
 </RadioGroup>
-<TextView
-    android:id="@+id/timetitle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:text="How long ago was your last meal?"
-    android:textSize="24sp" />
 
-<LinearLayout
+<View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:id="@+id/timetitle"
+        style="@style/Heading"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="How long ago was your last meal?" />
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -59,33 +80,39 @@ tools:context="com.example.android.com220finalapp.Eating">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Enter a Number"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:textSize="20sp"
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hours"
-        android:textSize="18sp"/>
+        android:textSize="20sp"/>
 </LinearLayout>
 
 <LinearLayout
+
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+
     <Button
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:text="SAVE"
-        android:onClick="save"/>
+        />
 
     <Button
+        android:id="@+id/menuButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:text="MENU"
-        android:onClick="menu"/>
+        />
 
 </LinearLayout>
 
