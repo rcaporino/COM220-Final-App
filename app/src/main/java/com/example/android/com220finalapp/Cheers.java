@@ -18,12 +18,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import service_and_storage.Friend;
+import service_and_storage.Service;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class CheersNoAsync extends AppCompatActivity implements SensorEventListener {
+public class Cheers extends AppCompatActivity implements SensorEventListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -36,7 +41,6 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private final float THRESHOLD = (float) 1;
-    private Context mContext;
     private float x = 0, y = 0;
     private float lastX = 0, lastY = 0;
     private float xSpeed = (float) (THRESHOLD + 0.000000001);
@@ -47,13 +51,17 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     private boolean forwardSuccessful = false;
     private boolean stoppedSuccessful = false;
     private boolean upwardSuccessful = false;
+    private boolean confirmedDirections = false;
+    LocationManager locationManager;
+    LocationListener locationListener;
+    private boolean hasLocPerms = false;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
+private boolean done = false;
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
@@ -79,6 +87,8 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
         }
     };
     private View mControlsView;
+    TextView cheersText;
+    Button cheersButton;
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -91,39 +101,39 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cheers_no_async);
+        setContentView(R.layout.activity_cheers);
         reqPermissions();
+
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
+        mContentView = findViewById(R.id.cheersMainText);
+        cheersText = (TextView) findViewById(R.id.cheersMainText);
+        cheersButton = (Button) findViewById(R.id.cheers_button);
         Log.i("BakerContext", "Setting Context");
-        mContext = CheersNoAsync.this;
         Log.i("BakerAccel", "Getting Accel");
-        sensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(accelerometer.TYPE_LINEAR_ACCELERATION);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         Log.i("BakerAccel", "Accel set up.");
 
-
         //TODO put the pairing notification to the server here with the time.
-        FindLocation();
-
+        if(hasLocPerms)
+            findLocation();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-
     }
 
 
-    public void FindLocation() {
+    public void findLocation() {
 
-        LocationManager locationManager = (LocationManager) this
+        locationManager = (LocationManager) this
                 .getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
+                Log.i("BAKERLOC","Location changed");
                 updateLocation(location);
             }
 
@@ -140,8 +150,8 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
         };
 
         if (Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("BakerDeny", "Didn't have permissions");
             return;
         }
@@ -155,7 +165,7 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
     }
 
 
-    void updateLocation(Location location) {
+    public void updateLocation(Location location) {
         currentLocation = location;
         currentLatitude = currentLocation.getLatitude();
         currentLongitude = currentLocation.getLongitude();
@@ -178,72 +188,95 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if (currentLatitude == 0.0) {
+cheersText.setText("Loading Location \n");
+        } else {
+            accelerometer = event.sensor;
+            if (accelerometer.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
+                //stores the x and y acceleration.
 
-        accelerometer = event.sensor;
-        if (accelerometer.getType() == Sensor.TYPE_LINEAR_ACCELERATION) {
-            //stores the x and y acceleration.
+                currentTime = System.currentTimeMillis();
+                if (!upwardSuccessful) {
+                    if(confirmedDirections == false) {
+                        cheersText.setTextSize(20);
+                        cheersText.setText("Instructions: \n\n" +
+                                "At the same time, thrust your phones forward, bump knuckles, and up toward the sky!\n\n" +
+                                "Push the button when ready!");
+                        cheersButton.setText("Go!");
+                    } else{
+                    if (currentTime - lastTime > 5) {
 
-            currentTime = System.currentTimeMillis();
-            if (!upwardSuccessful) {
-                if (currentTime - lastTime > 5) {
-                    if (event.values[0] > THRESHOLD) {
-                        x = event.values[0];
+                        cheersText.setTextSize(40);
+                        cheersText.setText("Go!\nCheers mate!\n");
+                        if (event.values[0] > THRESHOLD) {
+                            x = event.values[0];
+
+                        }
+                        if (event.values[1] > THRESHOLD) {
+                            y = event.values[1];
+                        }
+
+                        differenceInTime = currentTime - lastTime;
+
+                        xSpeed = Math.abs(x - lastX) / differenceInTime * 100;
+                        ySpeed = Math.abs(y - lastY) / differenceInTime * 100;
+                        Log.i("BakerAccel", "X Speed:" + xSpeed);
+                        Log.i("BakerAccel", "Y Speed:" + ySpeed);
+                        if (xSpeed >= 1 && !stoppedSuccessful && !upwardSuccessful) {
+                            forwardSuccessful = true;
+                            Log.i("BakerAccel", "Went forward");
+                        }
+                        if (!upwardSuccessful && forwardSuccessful && xSpeed <= THRESHOLD) {
+                            stoppedSuccessful = true;
+                            Log.i("BakerAccel", "Stopped");
+                        }
+                        if (forwardSuccessful && stoppedSuccessful && event.values[1] >= 1) {
+                            upwardSuccessful = true;
+                            Log.i("BakerAccel", "Went upward");
+                            timeStamp = System.currentTimeMillis();
+                        }
+                        //the above checks that you went forward, then stopped, then went upward.
+                        lastTime = currentTime;
+                        lastX = x;
+                        lastY = y;
+
 
                     }
-                    if (event.values[1] > THRESHOLD) {
-                        y = event.values[1];
                     }
-
-                    differenceInTime = currentTime - lastTime;
-
-                    xSpeed = Math.abs(x - lastX) / differenceInTime * 100;
-                    ySpeed = Math.abs(y - lastY) / differenceInTime * 100;
-                    Log.i("BakerAccel", "X Speed:" + xSpeed);
-                    Log.i("BakerAccel", "Y Speed:" + ySpeed);
-                    if (xSpeed >= 1 && !stoppedSuccessful && !upwardSuccessful) {
-                        forwardSuccessful = true;
-                        Log.i("BakerAccel", "Went forward");
-                    }
-                    if (!upwardSuccessful && forwardSuccessful && xSpeed <= THRESHOLD) {
-                        stoppedSuccessful = true;
-                        Log.i("BakerAccel", "Stopped");
-                    }
-                    if (forwardSuccessful && stoppedSuccessful && event.values[1] >= 1) {
-                        upwardSuccessful = true;
-                        Log.i("BakerAccel", "Went upward");
-                        timeStamp = System.currentTimeMillis();
-                    }
-                    //the above checks that you went forward, then stopped, then went upward.
+                } else if (done == false) {
+                    Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
+                    cheersText.setTextSize(20);
+                    cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
                     lastTime = currentTime;
-                    lastX = x;
-                    lastY = y;
-
-//TODO create an algorithm that gets the distance traveled forward and the distance traveled upward after
-
+                    done = true;
+                    cheersButton.setText("Restart");
                 }
-            } else if (currentTime - lastTime > 3000) {
-                Log.i("BakerComplete", "Mission Completed at " + timeStamp + "Location: " + currentLatitude + " , " + currentLongitude);
-                lastTime = currentTime;
             }
         }
-//TODO figure out how to have the thing listen for the boolean change
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    //TODO figure out how to find the time on the device with a lower API requirement (not 24)
     public void reqPermissions() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("BakerReq", "Requesting Coarse Permissions");
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1 /*TODO get a real request code.  any number may not work*/);
+                    1);
+        }        else
+        {
+            Log.i("BakerReq", "Has Coarse Location Permissions");
+            this.hasLocPerms = true;
         }
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.i("BakerReq", "Requesting Fine Permissions");
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    2 /*TODO get a real request code.  any number may not work*/);
+                    2);
+        }     else
+        {
+            Log.i("BakerReq", "Has Fine Location Permissions");
+            this.hasLocPerms = true;
         }
     }
 
@@ -255,7 +288,7 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    FindLocation();
+                    hasLocPerms = true;
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 
@@ -270,7 +303,7 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    FindLocation();
+                    hasLocPerms = true;
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
 
@@ -284,6 +317,35 @@ public class CheersNoAsync extends AppCompatActivity implements SensorEventListe
 
             // other 'case' lines to check for other
             // permissions this app might request
+        }
+    }
+
+    public void confirmFriend(){
+
+    }
+    public void addFriend(String name, String num){
+        Friend f = new Friend();
+        f.setName(name);
+        f.setNum(num);
+        Service s = new Service();
+        s.addCheersFriend(f);
+    }
+
+    public void buttonPress(View view){
+        if(confirmedDirections==true && currentLatitude!=0.0) {
+            done = false;
+            forwardSuccessful = false;
+            stoppedSuccessful = false;
+            upwardSuccessful = false;
+            cheersText.setTextSize(20);
+            cheersText.setText("Instructions: \n\n" +
+                    "At the same time, thrust your phones forward, bump knuckles, and up toward the sky!\n\n" +
+                    "Push the button when ready!");
+            cheersButton.setText("Restart");
+            confirmedDirections=false;
+        } else {
+confirmedDirections =true;
+            cheersButton.setText("Restart");
         }
     }
 

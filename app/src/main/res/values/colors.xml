@@ -5,4 +5,18 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+
+
+    <color name="purple">#800080</color>
+    <color name="sysLtGray">#FFCCCCCC</color>
+    <color name="sysGray">#FF888888</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="Orchid">#DA70D6</color>
+
+
+    <color name="lightgray">#e5e5e5</color>
+    <color name="darkgray">#4c4c4c</color>
+
+
 </resources>

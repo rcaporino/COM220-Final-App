@@ -1,9 +1,13 @@
 package service_and_storage;
 
+import java.io.Serializable;
+
 import java.util.Objects;
 
-public class Drink
+public class Drink implements Serializable
 {
+    private static final long BASE_TIME_DRANK = 0;
+    
     private String name;
     private double sizeInOz;
     private double proof;
@@ -14,10 +18,18 @@ public class Drink
         this.name = null;
         this.sizeInOz = Double.NaN;
         this.proof = Double.NaN;
-        this.timeDrank = 0;
+        this.timeDrank = Drink.BASE_TIME_DRANK;
     }
     
-    public Drink(String name, double sizeInOz, double proof, int timeDrank)
+    public Drink(String name, double sizeInOz, double proof)
+    {
+        this.name = name;
+        this.sizeInOz = sizeInOz;
+        this.proof = proof;
+        this.timeDrank = Drink.BASE_TIME_DRANK;
+    }
+    
+    public Drink(String name, double sizeInOz, double proof, long timeDrank)
     {
         this.name = name;
         this.sizeInOz = sizeInOz;
@@ -82,5 +94,19 @@ public class Drink
         }
         final Drink otherDrink = (Drink) obj;
         return Objects.equals(this.name, otherDrink.name);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return this.getName();
     }
 }

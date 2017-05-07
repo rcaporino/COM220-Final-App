@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#800080</item>
+        <item name="colorPrimaryDark">#FF000000</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -19,5 +19,86 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+
+
+    <style name="Heading">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginTop">40dp</item>
+
+    </style>
+
+    <style name="RadioButton">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/sysGray</item>
+    </style>
+
+    <style name="TopViewBar">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+
+    <style name="BottomViewBar">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:layout_marginTop">128dp</item>
+    </style>
+
+
+    <style name="Buttonstyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/lightgray</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/darkgray</item>
+    </style>
+
+
+    <style name="CenterViewBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:layout_marginTop">18dp</item>
+    </style>
+
+
+    <style name="ListViewStyle">
+        <item name="android:divider">@android:color/darker_gray</item>
+        <item name="android:dividerHeight">2px</item>
+        <item name="android:padding">18dp</item>
+        <item name="android:paddingBottom">5dip</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="ListViewTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/black</item>item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+
+    <style name="LargeTextStyle">
+        <item name="android:textSize">27sp</item>
+        <item name="android:textColor">@color/Orchid</item>
+    </style>
+
+
+    <style name="MediumTextStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/black</item>
+
+
+    </style>
+
+
+    <style name="SmallTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
 
 </resources>

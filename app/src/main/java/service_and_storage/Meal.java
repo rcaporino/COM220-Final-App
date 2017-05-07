@@ -1,8 +1,12 @@
 package service_and_storage;
 
-public class Meal
+import java.io.Serializable;
+
+public class Meal implements Serializable
 {
     public static enum MealType{Small, Medium, Large}
+    
+    private static final long BASE_TIME_EATEN = 0;
     
     private MealType mealType;
     private long timeEaten;
@@ -10,7 +14,7 @@ public class Meal
     public Meal()
     {
         this.mealType = null;
-        this.timeEaten = 0;
+        this.timeEaten = Meal.BASE_TIME_EATEN;
     }
     
     public Meal(MealType mealType, long timeEaten)

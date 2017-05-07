@@ -100,15 +100,15 @@
             android:layout_height="50dp"
             android:padding="4dp"
             android:textSize="9sp"
-            android:text="Share my Location"
-            android:onClick="locaBtn"/>
+            android:text="Find Friends"
+            android:onClick="friendsBtn"/>
 
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="4dp"
             android:textSize="9sp"
-            android:text="My Drunken Story"
+            android:text="My Story"
             android:onClick="stryBtn"/>
 
         <Button
