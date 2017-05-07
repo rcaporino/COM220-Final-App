@@ -1,7 +1,6 @@
 package service_and_storage;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,8 +25,10 @@ public class DataStorage
                 oos.writeObject(dc);
             }
         }
-        catch (FileNotFoundException ex) {}
-        catch (IOException ex) {}
+        catch (IOException ex)
+        {
+            throw new RuntimeException(ex);
+        }
     }
     
     public static DataCollection loadData()
@@ -39,27 +40,15 @@ public class DataStorage
                     new FileInputStream(DataStorage.DATA_FILE_NAME));
             dc = (DataCollection) ois.readObject();
         }
-        catch (FileNotFoundException ex) {}
         catch (IOException | ClassNotFoundException ex) {}
+        if(dc.getDefaultDrinks().isEmpty())
+        {
+            DataStorage.loadDefaultDrinks();
+        }
         return dc;
     }
     
-    public static void saveDefaultDrinks(List<Drink> defaultDrinks)
-    {
-        try
-        {
-            FileOutputStream fos = new FileOutputStream(
-                    DataStorage.DRINK_FILE_NAME);
-            try (ObjectOutputStream oos = new ObjectOutputStream(fos))
-            {
-                oos.writeObject(defaultDrinks);
-            }
-        }
-        catch (FileNotFoundException ex) {}
-        catch (IOException ex) {}
-    }
-    
-    public static List<Drink> loadDefaultDrinks()
+    private static List<Drink> loadDefaultDrinks()
     {
         List<Drink> list = new LinkedList<>();
         try
@@ -68,7 +57,6 @@ public class DataStorage
                     new FileInputStream(DataStorage.DRINK_FILE_NAME));
             list = (List<Drink>) ois.readObject();
         }
-        catch (FileNotFoundException ex) {}
         catch (IOException | ClassNotFoundException ex) {}
         return list;
     }
