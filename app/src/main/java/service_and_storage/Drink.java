@@ -29,7 +29,7 @@ public class Drink implements Serializable
         this.timeDrank = Drink.BASE_TIME_DRANK;
     }
     
-    public Drink(String name, double sizeInOz, double proof, int timeDrank)
+    public Drink(String name, double sizeInOz, double proof, long timeDrank)
     {
         this.name = name;
         this.sizeInOz = sizeInOz;
