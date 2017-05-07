@@ -20,13 +20,6 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
-import static java.security.AccessController.getContext;
 
 
 
@@ -34,20 +27,24 @@ public class cameraclass extends Activity {
     int TAKE_PHOTO_CODE = 0;
     public static int count = 0;
     ImageView mimageView;
-    //Uri outputFileUri = Uri.fromFile(newfile);
     Uri outputFileUri;
 
-    /** Called when the activity is first created. */
+
+    /*Context mContext; // ONLY RELEVANT IF I CAN GET THE IMAGE SLIDER TO WORK
+
+    AndroidImageAdapter(Context context) {
+        this.mContext = context;
+    }
+    */
+
+
     @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera);
 
         mimageView = (ImageView) this.findViewById(R.id.image_from_camera);
-
-
 
 
         // Here, we are making a folder named picFolder to store
@@ -64,17 +61,15 @@ public class cameraclass extends Activity {
                 // picture taken by camera will be stored as 1.jpg,2.jpg
                 // and likewise.
                 count++;
-                String file = dir+count+".jpg";
+                String file = dir + count + ".jpg";
                 File newfile = new File(file);
                 try {
                     newfile.createNewFile();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                 }
 
                 //Uri outputFileUri = Uri.fromFile(newfile);
-                outputFileUri = FileProvider.getUriForFile(getApplicationContext() , "com.example.android.com220finalapp.provider", newfile);
+                outputFileUri = FileProvider.getUriForFile(getApplicationContext(), "com.example.android.com220finalapp.provider", newfile);
 
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
@@ -92,7 +87,45 @@ public class cameraclass extends Activity {
         if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
             Log.d("CameraDemo", "Pic saved");
             mimageView.setImageURI(outputFileUri);
+
         }
 
     }
-}
+
+
+    /* Part of the image slider That isnt working.
+
+
+    @Override
+    public int getCount() {
+        return sliderImagesId.length;
+    }
+
+    private int[] sliderImagesId = new int[]{
+            R.drawable.image1, R.drawable.image2, R.drawable.cat,
+            R.drawable.image1, R.drawable.image2, R.drawable.cat,
+    };
+
+    @Override
+    public boolean isViewFromObject(View v, Object obj) {
+        return v == ((ImageView) obj);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int i) {
+        ImageView mImageView = new ImageView(mContext);
+        mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mImageView.setImageResource(sliderImagesId[i]);
+        ((ViewPager) container).addView(mImageView, 0);
+        return mImageView;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int i, Object obj) {
+        ((ViewPager) container).removeView((ImageView) obj);
+    }
+
+
+
+*/
+} //End class
