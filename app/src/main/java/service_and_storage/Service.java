@@ -13,12 +13,12 @@ import service_and_storage.User.Gender;
 public class Service
 {
     private static final int FAV_DRINK_START_INDEX = 0;
-    private static final int FAV_DRINK_END_INDEX = 4;
+    private static final int FAV_DRINK_END_INDEX = 5;
     
     private static Service service;
     
     private DataCollection dc;
-
+    
     private Service(DataCollection dc)
     {
         this.dc = dc;
@@ -210,7 +210,7 @@ public class Service
         }
         
         return result.subList(Service.FAV_DRINK_START_INDEX,
-                Service.FAV_DRINK_END_INDEX);
+                Math.min(result.size(), FAV_DRINK_END_INDEX));
     }
     
     private void saveData()
