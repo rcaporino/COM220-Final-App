@@ -320,7 +320,8 @@ cheersText.setText("Loading Location \n");
         }
     }
 
-    public void confirmFriend(){
+    //TODO add in the below once the friends list is ready to be implemented
+   /* public void confirmFriend(){
 
     }
     public void addFriend(String name, String num){
@@ -329,7 +330,7 @@ cheersText.setText("Loading Location \n");
         f.setNum(num);
         Service s = new Service();
         s.addCheersFriend(f);
-    }
+    }*/
 
     public void buttonPress(View view){
         if(confirmedDirections==true && currentLatitude!=0.0) {
