@@ -8,8 +8,6 @@ import android.widget.ImageButton;
 import android.widget.ViewSwitcher;
 
 public class MainActivity extends AppCompatActivity {
-    private ViewSwitcher simpleViewSwitcher;
-    ImageButton btnChange;
 
 
     @Override
@@ -18,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnChange = (ImageButton) findViewById(R.id.refresh);
-        simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);
     }
 
 
