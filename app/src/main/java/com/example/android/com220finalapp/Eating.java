@@ -10,7 +10,9 @@ import android.widget.RadioGroup;
 
 import java.util.Date;
 
+import service_and_storage.DataCollection;
 import service_and_storage.Meal;
+import service_and_storage.Service;
 
 public class Eating extends AppCompatActivity {
 
@@ -33,10 +35,16 @@ public class Eating extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     public void save()
     {
+
+        //service.getDataCollection();
+
+
         RadioGroup radioButtonGroup = (RadioGroup) findViewById(R.id.radiogroup);
         int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
         Meal MealObj = new Meal();
