@@ -1,5 +1,6 @@
 package service_and_storage;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -211,6 +212,28 @@ public class Service
         
         return result.subList(Service.FAV_DRINK_START_INDEX,
                 Math.min(result.size(), FAV_DRINK_END_INDEX));
+    }
+    
+    public File getImageFile()
+    {
+        return this.dc.getImageFile();
+    }
+    
+    public void setImageFile(File file)
+    {
+        this.dc.setImageFile(file);
+        saveData();
+    }
+    
+    public String getEmergencyMsg()
+    {
+        return this.dc.getEmergencyMsg();
+    }
+    
+    public void setEmergencyMsg(File file)
+    {
+        this.dc.setImageFile(file);
+        saveData();
     }
     
     private void saveData()
