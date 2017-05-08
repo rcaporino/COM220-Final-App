@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
-    <Button
-        android:id="@+id/smsButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send your Location to All in Party" />
     <Button
         android:id="@+id/contactButton"
         android:layout_width="match_parent"
@@ -16,7 +12,21 @@
         android:text="Add Contacts to Your Party" />
 
     <ListView
+        android:id="@+id/partyList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/partyList"/>
+        android:layout_height="271dp"
+        android:layout_weight="1.03" />
+
+    <EditText
+        android:id="@+id/ffmessage"
+        android:layout_width="match_parent"
+        android:text="Hey, Friend, I'm at this location: "
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/smsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send your Location to All in Party" />
+
 </LinearLayout>
