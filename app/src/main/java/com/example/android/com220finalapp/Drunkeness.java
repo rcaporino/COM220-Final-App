@@ -8,6 +8,7 @@ import service_and_storage.DataStorage;
 import service_and_storage.Drink;
 import service_and_storage.Service;
 import service_and_storage.User;
+import service_and_storage.Meal;
 
 public class Drunkeness extends AppCompatActivity
 {
@@ -115,6 +116,19 @@ public class Drunkeness extends AppCompatActivity
              * http://www.teamdui.com/bac-widmarks-formula/
              */
         }
+
+        if(service.getUserMealType() == Meal.MealType.Large)
+        {
+            bloodAlcohol = bloodAlcohol - 0.003;
+        } else if (service.getUserMealType() == Meal.MealType.Medium)
+        {
+            bloodAlcohol = bloodAlcohol - 0.002;
+        } else if (service.getUserMealType() == Meal.MealType.Small)
+        {
+            bloodAlcohol = bloodAlcohol - 0.001;
+        }
+
+        //service.setUserIntoxLevel(bloodAlcohol);
         user.setIntoxLevel(bloodAlcohol);
 
     }
