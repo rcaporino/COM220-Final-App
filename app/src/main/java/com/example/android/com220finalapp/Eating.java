@@ -16,6 +16,8 @@ import service_and_storage.Service;
 
 public class Eating extends AppCompatActivity {
 
+    Service service = Service.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +44,6 @@ public class Eating extends AppCompatActivity {
     public void save()
     {
 
-        //service.getDataCollection();
-
-
         RadioGroup radioButtonGroup = (RadioGroup) findViewById(R.id.radiogroup);
         int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
         Meal MealObj = new Meal();
@@ -53,26 +52,26 @@ public class Eating extends AppCompatActivity {
         {
             //set large
             //System.out.println("IN LARGE");
-           MealObj.setMealType(Meal.MealType.Large);
+           service.setUserMealType(Meal.MealType.Large);
         }
         if(radioButtonID == 2131427428)
         {
             //set medium
             //System.out.println("IN Medium");
-            MealObj.setMealType(Meal.MealType.Medium);
+            service.setUserMealType(Meal.MealType.Medium);
         }
         if(radioButtonID == 2131427429)
         {
             //set small
             //System.out.println("IN small");
-            MealObj.setMealType(Meal.MealType.Small);
+            service.setUserMealType(Meal.MealType.Small);
         }
 
         EditText hourField = (EditText) findViewById(R.id.houramount);
         String hours = hourField.getText().toString();
         int hour = Integer.parseInt(hours);
         long timeEaten = new Date().getTime() - (hour * 60 * 60 * 1000);
-        MealObj.setTimeEaten(timeEaten);
+        service.setUserMealTimeEaten(timeEaten);
 
         //System.out.println(radioButtonID);
         //System.out.println(MealObj.getMealType());
