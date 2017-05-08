@@ -1,150 +1,136 @@
 package com.example.android.com220finalapp;
 
-//package com.example.android.com220drunkapp;
-//
-//import android.support.v7.app.AppCompatActivity;
-//import android.os.Bundle;
-//import android.view.View;
-//
-//public class MainActivity extends AppCompatActivity {
-//    drunkeness t1 = new drunkeness();
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.drunkenessui);
-//
-//
-//    }
-//
-//    public void start(View view)
-//    {
-//        t1.go();
-//    }
-//}
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.CheckBox;
-        import android.widget.EditText;
-        import android.widget.RadioButton;
-        import android.widget.RadioGroup;
-        import android.widget.Spinner;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import java.util.*;
+import service_and_storage.DataCollection;
+import service_and_storage.DataStorage;
+import service_and_storage.Drink;
+import service_and_storage.Service;
+import service_and_storage.User;
+import service_and_storage.Meal;
 
-        import org.w3c.dom.Text;
-
-
-public class Drunkeness extends AppCompatActivity {
+public class Drunkeness extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drunkenessui);
     }
 
-    int numDrinks = 0;
-    double highestBAC = 0.0;
-    double currentBAC = 0.0;
-    double newBAC = 0;
-    double r = 0;
-    double n = 0.789;
-    double poundsToGrams = 453.59237;
-    double time = 0;
-    double gramsOfAlc = 0;
-    double weightInGrams = 0;
-    double gc = 0;
-    double rawNum = 0;
-    String gender = "";
+    Service service = Service.getInstance();
 
-    public void start(View view)
 
+    //Calculates and sets blood alcohol level for a user
+    public void setBloodAlcohol()
     {
-        numDrinks ++;
+        User user = service.getUser();
+        User.Gender gender = user.getGender();
+        List<Drink> allDrinks = service.getDrinksConsumed();
+        List<Drink> validDrinks = new LinkedList<>();
+        double bloodAlcohol = 0.0;
+        double gramsOfAlc;
+        double oz;
+        double proof;
+        double timeDiff;
+        double gc;
+        long firstDrinkTime = 0;
+        double weight = user.getWeight();
+        double timeCheck;
 
-        EditText weight = (EditText) findViewById(R.id.weight);
-        String weightValue = weight.getText().toString();
-        double w = Double.parseDouble(weightValue);
 
-        EditText percent = (EditText) findViewById(R.id.alcohol_percent);
-        String percentValue = percent.getText().toString();
-        double ap = Double.parseDouble(percentValue);
+        java.util.Date today = new java.util.Date();
+        java.sql.Timestamp time1 = new java.sql.Timestamp(today.getTime());
+        long timeNow = time1.getTime();
 
-        EditText ounces = (EditText) findViewById(R.id.ounces);
-        String ouncesValue = ounces.getText().toString();
-        double oz = Double.parseDouble(ouncesValue);
-
-        EditText numDrinks = (EditText) findViewById(R.id.num_d);
-        String numDrinksValue = numDrinks.getText().toString();
-        double nd = Double.parseDouble(numDrinksValue);
-
-        EditText hours = (EditText) findViewById(R.id.hours);
-        String hoursValue = hours.getText().toString();
-        double h = Double.parseDouble(hoursValue);
-
-//Spinner gend = (Spinner) findViewById(R.id.gender);
-//ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-//android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.gender_choice));
-//dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//gend.setAdapter(dataAdapter);
-//gender = String.valueOf(gend.getSelectedItem());
-
-        radioCheck();
-        calcBAC(w, ap, oz, nd, h);
-        setTextViews();;
-        System.out.println(currentBAC);
-
-    }
-
-    public void radioCheck() {
-        RadioButton male = (RadioButton) findViewById(R.id.male);
-        RadioButton female = (RadioButton) findViewById(R.id.female);
-        boolean m = male.isChecked();
-        boolean f = female.isChecked();
-        if (m == true) {
-            gender = "male";
+        if(gender == User.Gender.Male)
+        {
             gc = 0.73;
-        } else if (f == true) {
-            gender = "female";
+        }else if(gender == User.Gender.Female)
+        {
             gc = 0.66;
+        }else{
+            gc = 0.0;
         }
+
+        //Itereate over allDrinks list to only take drinks that were drunk within
+        //the past 12 hours;
+        for(Drink drink: allDrinks)
+        {
+            // set timeCheck to the current time - the current elements time drank to
+            // a number of hours
+            timeCheck = (timeNow - drink.getTimeDrank()) / (60.0 * 60.0 * 1000.0);
+
+            // If timeCheck is less than 12 hours then add the current element to
+            // the validDrink list
+            if(timeCheck < 12.0)
+            {
+                validDrinks.add(drink);
+            }
+        }
+
+        // Iterate over validDrinks list to find the first drinks time drank
+        for (Drink drink : validDrinks)
+        {   // If it hasnt been set yet, set it to the first elements time in the list
+
+            if (firstDrinkTime == 0)
+            {
+                firstDrinkTime = drink.getTimeDrank();
+
+            }
+            else
+            {   // check if the current element's time drank is less than the first time drank,
+                // set firstDrankTime to current elements time.
+                if (firstDrinkTime > drink.getTimeDrank())
+                {
+                    firstDrinkTime = drink.getTimeDrank();
+                }
+
+            }
+        }
+
+
+        //Calcuate elapsed time
+        timeDiff = timeNow - firstDrinkTime;
+
+        //Iterate over validDrinks list, calculate BAC for each drink
+        for(Drink drink : validDrinks)
+        {
+
+            oz = drink.getSizeInOz();
+            proof = drink.getProof();
+
+            //Converting milliseconds to hours
+            timeDiff = timeDiff / (60.0 * 60.0 * 1000.0);
+
+            gramsOfAlc = oz * (proof / 100.0) / 2.0;
+            bloodAlcohol += (gramsOfAlc * 5.14) / (weight * gc) - (.015 * timeDiff);
+            /*
+             * Widmark formula % BAC = (A x 5.14 / W x r) – .015 x H
+             * A = grams of alcohol
+             * W = Weight in lbs
+             * r = gender constant
+             * H = hours passed
+             * http://www.teamdui.com/bac-widmarks-formula/
+             */
+        }
+
+        if(service.getUserMealType() == Meal.MealType.Large)
+        {
+            bloodAlcohol = bloodAlcohol - 0.003;
+        } else if (service.getUserMealType() == Meal.MealType.Medium)
+        {
+            bloodAlcohol = bloodAlcohol - 0.002;
+        } else if (service.getUserMealType() == Meal.MealType.Small)
+        {
+            bloodAlcohol = bloodAlcohol - 0.001;
+        }
+
+        //service.setUserIntoxLevel(bloodAlcohol);
+        user.setIntoxLevel(bloodAlcohol);
+
     }
 
-    public void calcBAC(double weight, double alcPercent, double alcOunces, double numDrinks, double hours)
-    {
-
-//            gramsOfAlc = alcOunces * alcPercent * n;
-//            weightInGrams = weight * poundsToGrams;
-//            r = weightInGrams * gc;
-//            rawNum = gramsOfAlc / r;
-//            newBAC = rawNum * 100;
-//            currentBAC = newBAC + currentBAC;
-
-
-        gramsOfAlc = (numDrinks) * (alcOunces) * (alcPercent/100);
-        currentBAC = ((gramsOfAlc * 5.14) / (weight * gc)) - (.015 * hours);
-
-        if(currentBAC > highestBAC)
-            highestBAC = currentBAC;
-
-
-    }
-
-    public void setTextViews()
-    {
-        TextView drinkNumber = (TextView) findViewById(R.id.num_drink);
-        drinkNumber.setText("" + numDrinks);
-
-        TextView timeSinceLast = (TextView) findViewById(R.id.timer);
-
-        TextView record = (TextView) findViewById(R.id.highest_bac);
-        record.setText("" + highestBAC);
-
-        TextView current = (TextView) findViewById(R.id.current_bac);
-        current.setText("" + currentBAC);
-    }
 }

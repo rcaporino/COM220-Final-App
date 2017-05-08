@@ -24,7 +24,7 @@ public class HangoverWebView extends AppCompatActivity {
         mWebView = (WebView) findViewById(R.id.hangover_webview);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        mWebView.loadUrl("https://content.time.com/time/specials/packages/completelist/0,29569,2039990,00.html");
+        mWebView.loadUrl("http://content.time.com/time/specials/packages/article/0,28804,2039990_2039991_2040041,00.html");
 
 
 
