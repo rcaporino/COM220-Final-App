@@ -92,7 +92,10 @@ public class User implements Serializable
     }
 
     @Override
-    public String toString() {
-        return "User{" + "height=" + height + ", weight=" + weight + ", intoxLevel=" + intoxLevel + ", gender=" + gender + ", meal=" + meal + '}';
+    public String toString()
+    {
+        return "User{" + "height=" + height + ", weight=" + weight + 
+                ", intoxLevel=" + intoxLevel + ", gender=" + gender + 
+                ", meal=" + meal + '}';
     }
 }
