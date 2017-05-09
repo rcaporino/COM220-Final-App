@@ -17,9 +17,11 @@ import service_and_storage.Service;
 
 
 public class MainActivity extends AppCompatActivity {
+
     private ViewSwitcher simpleViewSwitcher;
     ImageButton btnChange;
     public boolean hasStorageReadPerms = false, hasStorageWritePerms=false;
+
 
 
     @Override
@@ -29,12 +31,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Service.setFilePath(getFilesDir());
 
         btnChange = (ImageButton) findViewById(R.id.refresh);
         simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);
         reqPermissions(1);
         reqPermissions(2);
+
     }
 
     public void reqPermissions(int i) {
