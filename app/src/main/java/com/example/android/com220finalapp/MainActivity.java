@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void accBtn(View view)
     {
-        //Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(MainActivity.this, setup.class);
+        startActivity(intent);
     }
 
     public void statBtn(View view)
