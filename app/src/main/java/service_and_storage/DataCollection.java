@@ -1,5 +1,6 @@
 package service_and_storage;
 
+import java.io.File;
 import java.io.Serializable;
 
 import java.util.LinkedList;
@@ -12,6 +13,9 @@ public class DataCollection implements Serializable
     private List<Drink> defaultDrinks;
     private List<Friend> cheersFriends;
     private List<Friend> emergencyContacts;
+    private File imageFile;
+    private String emergencyMsg;
+    private String filePath;
     
     public DataCollection()
     {
@@ -20,6 +24,8 @@ public class DataCollection implements Serializable
         this.defaultDrinks = new LinkedList<>();
         this.cheersFriends = new LinkedList<>();
         this.emergencyContacts = new LinkedList<>();
+        this.imageFile = null;
+        this.emergencyMsg = null;
     }
     
     public DataCollection(User user, List<Drink> drinkList,
@@ -30,6 +36,8 @@ public class DataCollection implements Serializable
         this.defaultDrinks = defaultDrinks;
         this.cheersFriends = new LinkedList<>();
         this.emergencyContacts = new LinkedList<>();
+        this.imageFile = null;
+        this.emergencyMsg = null;
     }
     
     public DataCollection(User user, List<Drink> drinkList,
@@ -41,6 +49,8 @@ public class DataCollection implements Serializable
         this.defaultDrinks = defaultDrinks;
         this.cheersFriends = cheersFriends;
         this.emergencyContacts = emergencyContacts;
+        this.imageFile = null;
+        this.emergencyMsg = null;
     }
 
     public User getUser()
@@ -68,6 +78,16 @@ public class DataCollection implements Serializable
         return this.emergencyContacts;
     }
     
+    public File getImageFile()
+    {
+        return this.imageFile;
+    }
+    
+    public String getEmergencyMsg()
+    {
+        return this.emergencyMsg;
+    }
+    
     public void setUser(User user)
     {
         this.user = user;
@@ -91,5 +111,15 @@ public class DataCollection implements Serializable
     public void setEmergencyContacts(List<Friend> emergencyContacts)
     {
         this.emergencyContacts = emergencyContacts;
+    }
+    
+    public void setImageFile(File file)
+    {
+        this.imageFile = file;
+    }
+    
+    public void setEmergencyMsg(String emergencyMsg)
+    {
+        this.emergencyMsg = emergencyMsg;
     }
 }

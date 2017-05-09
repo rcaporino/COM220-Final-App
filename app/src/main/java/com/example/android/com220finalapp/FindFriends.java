@@ -21,13 +21,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import service_and_storage.Friend;
+import service_and_storage.Service;
 
 /**
  * Created by Friedrich on 4/29/2017.
@@ -40,7 +45,7 @@ public class FindFriends extends AppCompatActivity
     private double currentLat;
     private double currentLon;
 
-    private List<Friend> party = new ArrayList<Friend>(); //TODO load from file
+    private List<Friend> party = new LinkedList<Friend>(); //TODO load from file
 
     public boolean hasSMSPerms = false;
     public boolean hasLocPerms = false;
@@ -49,6 +54,8 @@ public class FindFriends extends AppCompatActivity
     private static final int RESULT_PICK_CONTACT = 8550;
 
     static String beginning = "http://maps.google.com/maps";
+
+    private EditText txtV;
 
     ArrayAdapter<String> arrayAdapter;
 
@@ -72,6 +79,8 @@ public class FindFriends extends AppCompatActivity
 
         partyList.setAdapter(arrayAdapter);
 
+        txtV = (EditText) findViewById(R.id.ffmessage);
+
         final Button smsBtn = (Button) findViewById(R.id.smsButton);
         smsBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -82,11 +91,15 @@ public class FindFriends extends AppCompatActivity
 
                    if (hasSMSPerms)
                    {
-                       sendSMSToFriends();
+                       String msg =(String) txtV.getText().toString();
+                       sendSMSToFriends(msg);
                    }
                }
            }
         });
+
+
+
 
     }
 
@@ -150,16 +163,26 @@ public class FindFriends extends AppCompatActivity
 
             Friend frnd = new Friend(name, str);
             Log.d("SiggiTest", frnd.toString());
-            party.add(frnd);
 
-            arrayAdapter.notifyDataSetChanged();
+            this.addFriend(frnd);
+
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void sendSMSToFriends()
+    private void addFriend(Friend frnd)
+    {
+        Service.getInstance().addCheersFriend(frnd);
+
+        this.loadFriendsList();
+    }
+
+    private void sendSMSToFriends(String msg)
     {
         //TODO get friend's list
         SmsManager smsManager = SmsManager.getDefault();
@@ -169,7 +192,10 @@ public class FindFriends extends AppCompatActivity
         //old schema
         for (Friend frnd : party)
         {
-            smsManager.sendTextMessage("+" + frnd.getNum(), null, "Hey, " + frnd.getName() + ", I'm at this location: " + formURL("dir", currentLat, currentLon, 9 ), null, null);
+            //form message
+            String str = msg.replace("Friend", frnd.getName());
+
+            smsManager.sendTextMessage("+" + frnd.getNum(), null, str + " " + formURL("dir", currentLat, currentLon, 9 ), null, null);
         }
 
         Toast toast = Toast.makeText(this, "SMS message sent to party", Toast.LENGTH_LONG);
@@ -178,12 +204,20 @@ public class FindFriends extends AppCompatActivity
 
     }
 
+    private void loadFriendsList()
+    {
+        party = Service.getInstance().getCheersFriends();
+        arrayAdapter.clear();
+        arrayAdapter.addAll((List)party);
+        arrayAdapter.notifyDataSetChanged();
+    }
+
     private String formURL(String rType, double lat, double lon, int zoom)
     {
         //new Schema
         //return beginning +"/" + rType + "/" + "My+Location/" + lat + "," + lon + "/@" + lat + "," + lon + "," + zoom + "z";
         //Old Schema
-        return beginning + "?" + "z=" + "9" + "q=" + "loc:" + currentLat + "+" + currentLon;
+        return beginning + "?" + "q=" + "@" + currentLat + "+" + currentLon + "z=" + "9" ;
     }
 
     private void reqPermissions()
@@ -334,12 +368,12 @@ public class FindFriends extends AppCompatActivity
 
     }
 
-    public class Friend implements Serializable
+    /*public class Friend implements Serializable
     {
         private String name;
         /**
          * Should be in the format "12225551234", as that's what the SMSManager takes
-         */
+         *
         private String num;
 
         public String getName() {
@@ -369,5 +403,5 @@ public class FindFriends extends AppCompatActivity
             return this.name + ": " + this.num;
         }
 
-    }
+    }*/
 }

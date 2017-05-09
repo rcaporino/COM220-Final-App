@@ -1,11 +1,13 @@
 package com.example.android.com220finalapp;
 
-        import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
-        import java.util.*;
-        import service_and_storage.DataCollection;
-        import service_and_storage.Drink;
-        import service_and_storage.User;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import java.util.*;
+import service_and_storage.Drink;
+import service_and_storage.Service;
+import service_and_storage.User;
+import service_and_storage.Meal;
+import service_and_storage.Meal.MealType;
 
 public class Drunkeness extends AppCompatActivity
 {
@@ -17,31 +19,23 @@ public class Drunkeness extends AppCompatActivity
         setContentView(R.layout.drunkenessui);
     }
 
-    DataCollection data = new DataCollection();
-
-    /**
-     * Calculates and sets blood alcohol level for a user
-     * @param user user object
-     * @param allDrinks linkedlist of all drinks
-     */
-    /**
-     * I think it would also make more sense to get the current time as a
-     * parameter but I said I would be getting the current time in class
-     */
-    public void setBloodAlcohol(User user, List<Drink> allDrinks)
+    //Calculates and sets blood alcohol level for a user
+    public void setBloodAlcohol()
     {
-
+        User user = Service.getInstance().getUser();
+        User.Gender gender = user.getGender();
+        List<Drink> allDrinks = Service.getInstance().getDrinksConsumed();
+        List<Drink> validDrinks = new LinkedList<>();
         double bloodAlcohol = 0.0;
-        double gramsOfAlc = 0.0;
+        double gramsOfAlc;
         double oz;
         double proof;
         double timeDiff;
-        double gc = 0;
+        double gc;
         long firstDrinkTime = 0;
         double weight = user.getWeight();
-        double timeCheck = 0.0;
-        List<Drink> validDrinks = new LinkedList<>();
-        User.Gender gender = user.getGender();
+        double timeCheck;
+
 
         java.util.Date today = new java.util.Date();
         java.sql.Timestamp time1 = new java.sql.Timestamp(today.getTime());
@@ -108,8 +102,8 @@ public class Drunkeness extends AppCompatActivity
             timeDiff = timeDiff / (60.0 * 60.0 * 1000.0);
 
             gramsOfAlc = oz * (proof / 100.0) / 2.0;
-            bloodAlcohol += (gramsOfAlc * 5.14) / (weight * gc) - (.015 * timeDiff) * 1;
-            /**
+            bloodAlcohol += (gramsOfAlc * 5.14) / (weight * gc) - (.015 * timeDiff);
+            /*
              * Widmark formula % BAC = (A x 5.14 / W x r) – .015 x H
              * A = grams of alcohol
              * W = Weight in lbs
@@ -119,7 +113,19 @@ public class Drunkeness extends AppCompatActivity
              */
         }
 
-        user.setIntoxLevel(bloodAlcohol);
+//            if(Service.getInstance().getUserMealType() != null) {
+//
+//                if (Service.getInstance().getUserMealType() == Meal.MealType.Large) {
+//                    bloodAlcohol = bloodAlcohol - 0.003;
+//                } else if (Service.getInstance().getUserMealType() == Meal.MealType.Medium) {
+//                    bloodAlcohol = bloodAlcohol - 0.002;
+//                } else if (Service.getInstance().getUserMealType() == Meal.MealType.Small) {
+//                    bloodAlcohol = bloodAlcohol - 0.001;
+//                }
+//            }
+
+        Service.getInstance().setUserIntoxLevel(bloodAlcohol);
+        //user.setIntoxLevel(bloodAlcohol);
 
     }
 

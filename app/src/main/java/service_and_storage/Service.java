@@ -1,5 +1,6 @@
 package service_and_storage;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -13,12 +14,13 @@ import service_and_storage.User.Gender;
 public class Service
 {
     private static final int FAV_DRINK_START_INDEX = 0;
-    private static final int FAV_DRINK_END_INDEX = 4;
+    private static final int FAV_DRINK_END_INDEX = 5;
     
     private static Service service;
+    private static File filePath;
     
-    private DataCollection dc;
-
+    private final DataCollection dc;
+    
     private Service(DataCollection dc)
     {
         this.dc = dc;
@@ -210,11 +212,44 @@ public class Service
         }
         
         return result.subList(Service.FAV_DRINK_START_INDEX,
-                Service.FAV_DRINK_END_INDEX);
+                Math.min(result.size(), FAV_DRINK_END_INDEX));
     }
+    
+    public File getImageFile()
+    {
+        return this.dc.getImageFile();
+    }
+    
+    public void setImageFile(File file)
+    {
+        this.dc.setImageFile(file);
+        saveData();
+    }
+    
+    public String getEmergencyMsg()
+    {
+        return this.dc.getEmergencyMsg();
+    }
+    
+    public void setEmergencyMsg(File file)
+    {
+        this.dc.setImageFile(file);
+        saveData();
+    }
+
+    public File getFilePath()
+    {
+        return Service.filePath;
+    }
+
     
     private void saveData()
     {
         DataStorage.saveData(this.dc);
+    }
+
+    public static void setFilePath(File path)
+    {
+        DataStorage.setParentDir(path);
     }
 }
