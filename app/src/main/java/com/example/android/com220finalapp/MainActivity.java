@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         Service.setFilePath(getFilesDir());
 
-        btnChange = (ImageButton) findViewById(R.id.refresh);
-        simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);
+        //btnChange = (ImageButton) findViewById(R.id.refresh);
+       // simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);
         reqPermissions(1);
         reqPermissions(2);
 
