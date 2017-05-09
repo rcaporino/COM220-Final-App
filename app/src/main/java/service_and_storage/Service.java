@@ -17,8 +17,9 @@ public class Service
     private static final int FAV_DRINK_END_INDEX = 5;
     
     private static Service service;
+    private static String filePath;
     
-    private DataCollection dc;
+    private final DataCollection dc;
     
     private Service(DataCollection dc)
     {
@@ -212,6 +213,39 @@ public class Service
         
         return result.subList(Service.FAV_DRINK_START_INDEX,
                 Math.min(result.size(), FAV_DRINK_END_INDEX));
+    }
+    
+    public File getImageFile()
+    {
+        return this.dc.getImageFile();
+    }
+    
+    public void setImageFile(File file)
+    {
+        this.dc.setImageFile(file);
+        saveData();
+    }
+    
+    public String getEmergencyMsg()
+    {
+        return this.dc.getEmergencyMsg();
+    }
+    
+    public void setEmergencyMsg(File file)
+    {
+        this.dc.setImageFile(file);
+        saveData();
+    }
+    
+    public String getFilePath()
+    {
+        return Service.filePath;
+    }
+    
+    public void setFilePath(String filePath)
+    {
+        Service.filePath = filePath;
+        saveData();
     }
     
     private void saveData()

@@ -3,12 +3,11 @@ package com.example.android.com220finalapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import java.util.*;
-import service_and_storage.DataCollection;
-import service_and_storage.DataStorage;
 import service_and_storage.Drink;
 import service_and_storage.Service;
 import service_and_storage.User;
 import service_and_storage.Meal;
+import service_and_storage.Meal.MealType;
 
 public class Drunkeness extends AppCompatActivity
 {
@@ -20,15 +19,12 @@ public class Drunkeness extends AppCompatActivity
         setContentView(R.layout.drunkenessui);
     }
 
-    Service service = Service.getInstance();
-
-
     //Calculates and sets blood alcohol level for a user
     public void setBloodAlcohol()
     {
-        User user = service.getUser();
+        User user = Service.getInstance().getUser();
         User.Gender gender = user.getGender();
-        List<Drink> allDrinks = service.getDrinksConsumed();
+        List<Drink> allDrinks = Service.getInstance().getDrinksConsumed();
         List<Drink> validDrinks = new LinkedList<>();
         double bloodAlcohol = 0.0;
         double gramsOfAlc;
@@ -117,19 +113,19 @@ public class Drunkeness extends AppCompatActivity
              */
         }
 
-        if(service.getUserMealType() == Meal.MealType.Large)
-        {
-            bloodAlcohol = bloodAlcohol - 0.003;
-        } else if (service.getUserMealType() == Meal.MealType.Medium)
-        {
-            bloodAlcohol = bloodAlcohol - 0.002;
-        } else if (service.getUserMealType() == Meal.MealType.Small)
-        {
-            bloodAlcohol = bloodAlcohol - 0.001;
-        }
+//            if(Service.getInstance().getUserMealType() != null) {
+//
+//                if (Service.getInstance().getUserMealType() == Meal.MealType.Large) {
+//                    bloodAlcohol = bloodAlcohol - 0.003;
+//                } else if (Service.getInstance().getUserMealType() == Meal.MealType.Medium) {
+//                    bloodAlcohol = bloodAlcohol - 0.002;
+//                } else if (Service.getInstance().getUserMealType() == Meal.MealType.Small) {
+//                    bloodAlcohol = bloodAlcohol - 0.001;
+//                }
+//            }
 
-        //service.setUserIntoxLevel(bloodAlcohol);
-        user.setIntoxLevel(bloodAlcohol);
+        Service.getInstance().setUserIntoxLevel(bloodAlcohol);
+        //user.setIntoxLevel(bloodAlcohol);
 
     }
 
