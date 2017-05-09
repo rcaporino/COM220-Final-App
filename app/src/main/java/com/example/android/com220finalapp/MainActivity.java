@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     // contacts-related task you need to do.
 
                 } else {
-                    reqPermissions(1);
+                 //   reqPermissions(1);
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     // contacts-related task you need to do.
 
                 } else {
-                    reqPermissions(2);
+//                    reqPermissions(2);
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }

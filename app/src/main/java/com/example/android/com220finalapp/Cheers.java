@@ -249,7 +249,8 @@ cheersText.setText("Loading Location \n");
                     }
                 } else if (done == false) {
                     Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
-                    cheersText.setTextSize(20);
+                    cheersText.setText("Attempting Pairing");
+                    cheersText.setTextSize(30);
                    //cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
                     new CheersJsonAsync(createUrl(),this).execute();
                     lastTime = currentTime;
@@ -330,26 +331,30 @@ cheersText.setText("Loading Location \n");
     public void backToMainActivity(ArrayList<String> s){
         friendName = s.get(0);
         friendNum = s.get(1);
-       // addFriend(friendName,friendNum);
-        cheersText.setText("Friend Name: \n" +friendName+"\nFriend Number ="+friendNum);
+
+        if(!friendName.equals("No Cheers")){
+            cheersText.setText("Friend Name: \n" +friendName+"\nFriend Number ="+friendNum);
+        } else {
+            cheersText.setText("No match found!\nPress the button below to try again!");
+        }
     }
 public String createUrl(){
-    String urlStart ="http://quizkidappapi.azurewebsites.net/api/com200?";
+    String urlStart ="http://quizkidappapi.azurewebsites.net/api/com220?";
     String time = "time="+Long.toString(timeStamp);
-    String locLat = "locationLat="+Double.toString(currentLatitude);
-    String locLong = "locationLong="+Double.toString(currentLongitude);
+    String locLat = "&locationLat="+Double.toString(currentLatitude);
+    String locLong = "&locationLong="+Double.toString(currentLongitude);
     //TODO get the user phone number
-    String phone = "phone="+"6315664542";
-    String number = "number="+"6315664542";
+    String phone = "&phone="+"6315664542";
+    String number = "&number="+"6315664542";
     //TODO create an xml slot where you put in your name before you begin and integrate it
-    String name = "name="+"John";
+    String name = "&name="+"John";
     //String name = "name="+Service.getInstance().getName;
 
-    return urlStart+time+locLat+locLong+phone+name;
+    return urlStart+time+locLat+locLong+phone+number+name;
 }
 
     public void confirmFriend(){
-
+        // addFriend(friendName,friendNum);
     }
 
     public void addFriend(String name, String num){

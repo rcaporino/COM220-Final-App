@@ -10,9 +10,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by John on 5/8/2017.
- */
 
 public class CheersJsonAsync extends AsyncTask<String, String, ArrayList<String>> {
     //TODO input the URL
@@ -59,11 +56,15 @@ public class CheersJsonAsync extends AsyncTask<String, String, ArrayList<String>
             Log.i("BAKERCALL", "CALLING");
             String json = callURL(url);
             Log.i("BakerJSONRAW", json);
-
             ArrayList<String> jsonFriend = new ArrayList<String>();
-            JSONObject urlRet = new JSONObject(json);
+            if(!json.equals("\"No Cheers Found\"")){
+                JSONObject urlRet = new JSONObject(json);
                 jsonFriend.add(urlRet.getString("name"));
                 jsonFriend.add(urlRet.getString("number"));
+            }else{
+                jsonFriend.add("No Cheers");
+                jsonFriend.add("No Cheers");
+            }
             return jsonFriend;
 
         } catch (Exception e) {

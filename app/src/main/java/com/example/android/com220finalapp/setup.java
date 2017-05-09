@@ -31,8 +31,8 @@ public class setup extends AppCompatActivity {
 
 
 
-            EditText Name = (EditText) findViewById(R.id.etNAME) ;
-        String TNAME = Name.getText().toString();
+            //EditText Name = (EditText) findViewById(R.id.etNAME) ;
+        //String TNAME = Name.getText().toString();
         EditText hight = (EditText) findViewById(R.id.etHight);
         String shight = hight.getText().toString();
         double HightValue = Double.parseDouble(shight);
@@ -48,12 +48,12 @@ public class setup extends AppCompatActivity {
         if (fmen)
             ImFemale = Boolean.TRUE;
 
-        Service.getInstance().setUserName(TNAME);
+        //Service.getInstance().setUserName(TNAME);
         Service.getInstance().setUserWeight(WightValue);
         Service.getInstance().setUserHeight(HightValue);
 
         if (ImMAle)
-            Service.getInstance().setUserGender(User.Gender.Male));
+            Service.getInstance().setUserGender(User.Gender.Male);
         if (ImFemale)
          Service.getInstance().setUserGender(User.Gender.Female);
 
