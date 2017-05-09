@@ -15,6 +15,7 @@ public class DataCollection implements Serializable
     private List<Friend> emergencyContacts;
     private File imageFile;
     private String emergencyMsg;
+    private String filePath;
     
     public DataCollection()
     {

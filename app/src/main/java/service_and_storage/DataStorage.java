@@ -19,7 +19,8 @@ public class DataStorage
         try
         {
             FileOutputStream fos = new FileOutputStream(
-                    DataStorage.DATA_FILE_NAME);
+                    Service.getInstance().getFilePath() +
+                            DataStorage.DATA_FILE_NAME);
             try (ObjectOutputStream oos = new ObjectOutputStream(fos))
             {
                 oos.writeObject(dc);
@@ -54,7 +55,8 @@ public class DataStorage
         try
         {
             ObjectInputStream ois = new ObjectInputStream(
-                    new FileInputStream(DataStorage.DRINK_FILE_NAME));
+                    new FileInputStream(Service.getInstance().getFilePath() + 
+                            DataStorage.DRINK_FILE_NAME));
             list = (List<Drink>) ois.readObject();
         }
         catch (IOException | ClassNotFoundException ex) {}
