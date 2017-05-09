@@ -40,25 +40,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height"
                 android:layout_marginTop="12dp"
-                android:textSize="20sp"
+                android:text="Height"
                 android:textColor="@android:color/black"
+                android:textSize="20sp"
 
                 />
+
             <EditText
                 android:id="@+id/etHight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Feet"
                 android:layout_marginTop="12dp"
-                />
+                android:layout_weight="1"
+                android:text="Feet" />
         </LinearLayout>
 
 
@@ -68,29 +69,57 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Weight"
-                android:layout_marginTop="9dp"
-                android:textSize="20dp"
-                android:textColor="@android:color/black"
-                />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="Weight"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
             <EditText
                 android:id="@+id/etWidth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="number"/>
+                android:inputType="number" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pounds"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="7dp"
-                />
+                android:layout_weight="1"
+                android:text="Pounds" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="Name"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/etNAME"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                 />
         </LinearLayout>
 
     </LinearLayout>
@@ -138,7 +167,13 @@
                 android:text="Female" />
 
         </RadioGroup>
+    </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
         <Button
             android:layout_gravity="center"
             android:id="@+id/btnCompleted"
@@ -147,7 +182,6 @@
             android:onClick="done"
             android:text="Confirm"
             android:textAppearance="@style/Buttonstyle" />
-
 
 
     </LinearLayout>

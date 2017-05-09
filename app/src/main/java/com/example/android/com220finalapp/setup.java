@@ -15,18 +15,24 @@ public class setup extends AppCompatActivity {
     boolean ImMAle;
     boolean ImFemale;
 
-    Service service = Service.getInstance();
-    User user = service.getUser();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
 
+
+
     }
 
     public void done(View view) {
+
+
+
+
+
+            EditText Name = (EditText) findViewById(R.id.etNAME) ;
+        String TNAME = Name.getText().toString();
         EditText hight = (EditText) findViewById(R.id.etHight);
         String shight = hight.getText().toString();
         double HightValue = Double.parseDouble(shight);
@@ -42,13 +48,18 @@ public class setup extends AppCompatActivity {
         if (fmen)
             ImFemale = Boolean.TRUE;
 
+        Service.getInstance().setUserName(TNAME);
+        Service.getInstance().setUserWeight(WightValue);
+        Service.getInstance().setUserHeight(HightValue);
 
-        user.setWeight(WightValue);
-        user.setHeight(HightValue);
         if (ImMAle)
-            user.setGender(User.Gender.Male);
+            Service.getInstance().setUserGender(User.Gender.Male));
         if (ImFemale)
-            user.setGender(User.Gender.Female);
+         Service.getInstance().setUserGender(User.Gender.Female);
+
+
+
+
         Intent intent = new Intent(setup.this,MainActivity.class);
         startActivity(intent);
 
