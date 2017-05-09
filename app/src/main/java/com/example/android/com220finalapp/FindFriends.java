@@ -207,7 +207,8 @@ public class FindFriends extends AppCompatActivity
     private void loadFriendsList()
     {
         party = Service.getInstance().getCheersFriends();
-
+        arrayAdapter.clear();
+        arrayAdapter.addAll((List)party);
         arrayAdapter.notifyDataSetChanged();
     }
 

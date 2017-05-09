@@ -1,5 +1,6 @@
 package service_and_storage;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -216,5 +217,10 @@ public class Service
     private void saveData()
     {
         DataStorage.saveData(this.dc);
+    }
+
+    public static void setFilePath(File path)
+    {
+        DataStorage.setParentDir(path);
     }
 }
