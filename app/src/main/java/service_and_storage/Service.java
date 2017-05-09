@@ -252,4 +252,9 @@ public class Service
     {
         DataStorage.saveData(this.dc);
     }
+
+    public static void setFilePath(File path)
+    {
+        DataStorage.setParentDir(path);
+    }
 }

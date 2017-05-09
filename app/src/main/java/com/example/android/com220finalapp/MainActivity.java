@@ -12,11 +12,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ViewSwitcher;
 
-import java.util.List;
 
-import service_and_storage.Drink;
 import service_and_storage.Service;
-import service_and_storage.User;
+
 
 public class MainActivity extends AppCompatActivity {
     private ViewSwitcher simpleViewSwitcher;
@@ -33,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Service.getInstance().setFilePath(getFilesDir().getPath());
+
+        Service.setFilePath(getFilesDir());
+
 
         btnChange = (ImageButton) findViewById(R.id.refresh);
         simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);

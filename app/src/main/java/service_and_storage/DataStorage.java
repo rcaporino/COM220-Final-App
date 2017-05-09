@@ -1,5 +1,6 @@
 package service_and_storage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,14 +14,15 @@ public class DataStorage
 {
     private static final String DATA_FILE_NAME = "data.bin";
     private static final String DRINK_FILE_NAME = "drinks.bin";
+    private static File parentDir;
     
     public static void saveData(DataCollection dc)
     {
         try
         {
-            FileOutputStream fos = new FileOutputStream(
-                    Service.getInstance().getFilePath() +
-                            DataStorage.DATA_FILE_NAME);
+
+            FileOutputStream fos = new FileOutputStream(new File(parentDir, DataStorage.DATA_FILE_NAME));
+
             try (ObjectOutputStream oos = new ObjectOutputStream(fos))
             {
                 oos.writeObject(dc);
@@ -38,7 +40,7 @@ public class DataStorage
         try
         {
             ObjectInputStream ois = new ObjectInputStream(
-                    new FileInputStream(DataStorage.DATA_FILE_NAME));
+                    new FileInputStream(new File(parentDir, DataStorage.DATA_FILE_NAME)));
             dc = (DataCollection) ois.readObject();
         }
         catch (IOException | ClassNotFoundException ex) {}
@@ -61,5 +63,10 @@ public class DataStorage
         }
         catch (IOException | ClassNotFoundException ex) {}
         return list;
+    }
+
+    public static void setParentDir(File fileIn)
+    {
+        parentDir = fileIn;
     }
 }
