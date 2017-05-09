@@ -329,13 +329,19 @@ cheersText.setText("Loading Location \n");
     //TODO add in the below once the friends list is ready to be implemented
     @Override
     public void backToMainActivity(ArrayList<String> s){
-        friendName = s.get(0);
-        friendNum = s.get(1);
+        if(!s.isEmpty()) {
+            friendName = s.get(0);
+            friendNum = s.get(1);
 
-        if(!friendName.equals("No Cheers")){
-            cheersText.setText("Friend Name: \n" +friendName+"\nFriend Number ="+friendNum);
-        } else {
-            cheersText.setText("No match found!\nPress the button below to try again!");
+            if (!friendName.equals("No Cheers")) {
+                cheersText.setText("Friend Name: \n" + friendName + "\nFriend Number =" + friendNum);
+            } else {
+                cheersText.setText("No match found!\nPress the button below to try again!");
+            }
+
+        }
+        else{
+            cheersText.setText("Cheers pairing currently unavailable!\nPress the button below to try again!");
         }
     }
 public String createUrl(){

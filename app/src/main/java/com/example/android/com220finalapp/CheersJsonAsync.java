@@ -69,7 +69,7 @@ public class CheersJsonAsync extends AsyncTask<String, String, ArrayList<String>
 
         } catch (Exception e) {
             Log.e ("BakerEXCEPTION","Exception Thrown, Debug", e);
-            return null;
+            return new ArrayList<String>();
         }
     }
 
