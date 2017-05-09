@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.com220finalapp.setup"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,25 +40,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height"
                 android:layout_marginTop="12dp"
-                android:textSize="20sp"
+                android:text="Height"
                 android:textColor="@android:color/black"
+                android:textSize="20sp"
 
                 />
+
             <EditText
                 android:id="@+id/etHight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="number"/>
+                android:inputType="numberDecimal" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Feet"
                 android:layout_marginTop="12dp"
-                />
+                android:layout_weight="1"
+                android:text="Feet" />
         </LinearLayout>
 
 
@@ -67,29 +69,57 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Weight"
-                android:layout_marginTop="9dp"
-                android:textSize="20dp"
-                android:textColor="@android:color/black"
-                />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="Weight"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
             <EditText
                 android:id="@+id/etWidth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="number"/>
+                android:inputType="number" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Pounds"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="7dp"
-                />
+                android:layout_weight="1"
+                android:text="Pounds" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="Name"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/etNAME"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                 />
         </LinearLayout>
 
     </LinearLayout>
@@ -98,20 +128,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginTop="18dp"/>
+            android:layout_marginTop="18dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
+            style="@style/Heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GENDER"
             android:layout_marginTop="20dp"
-            style="@style/Heading"/>
+            android:text="GENDER" />
 
 
         <RadioGroup
@@ -125,32 +156,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Male"
-                android:textSize="20sp"
-                android:textColor="@color/sysGray"/>
+                android:textColor="@color/sysGray"
+                android:textSize="20sp" />
 
             <RadioButton
                 android:id="@+id/rbFemale"
+                style="@style/RadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Female"
-                style="@style/RadioButton"/>
+                android:text="Female" />
 
         </RadioGroup>
+    </LinearLayout>
 
-
-
-
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            style="@style/BottomViewBar"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/btnCompleted"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:onClick="done"
+            android:text="Confirm"
+            android:textAppearance="@style/Buttonstyle" />
 
 
     </LinearLayout>
 
+    <View
+        style="@style/BottomViewBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
 
 
 
 </LinearLayout>
+
+
+
+
 
