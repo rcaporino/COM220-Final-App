@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import service_and_storage.Friend;
 import service_and_storage.Service;
 
@@ -28,7 +30,7 @@ import service_and_storage.Service;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class Cheers extends AppCompatActivity implements SensorEventListener {
+public class Cheers extends AppCompatActivity implements SensorEventListener, CheersJsonAsync.Handoff {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -55,6 +57,8 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
     LocationManager locationManager;
     LocationListener locationListener;
     private boolean hasLocPerms = false;
+    private String friendName = "", friendNum="";
+    private String url = "";
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -246,7 +250,8 @@ cheersText.setText("Loading Location \n");
                 } else if (done == false) {
                     Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
                     cheersText.setTextSize(20);
-                    cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
+                   //cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
+                    new CheersJsonAsync(createUrl(),this).execute();
                     lastTime = currentTime;
                     done = true;
                     cheersButton.setText("Restart");
@@ -321,6 +326,28 @@ cheersText.setText("Loading Location \n");
     }
 
     //TODO add in the below once the friends list is ready to be implemented
+    @Override
+    public void backToMainActivity(ArrayList<String> s){
+        friendName = s.get(0);
+        friendNum = s.get(1);
+       // addFriend(friendName,friendNum);
+        cheersText.setText("Friend Name: \n" +friendName+"\nFriend Number ="+friendNum);
+    }
+public String createUrl(){
+    String urlStart ="http://quizkidappapi.azurewebsites.net/api/com200?";
+    String time = "time="+Long.toString(timeStamp);
+    String locLat = "locationLat="+Double.toString(currentLatitude);
+    String locLong = "locationLong="+Double.toString(currentLongitude);
+    //TODO get the user phone number
+    String phone = "phone="+"6315664542";
+    String number = "number="+"6315664542";
+    //TODO create an xml slot where you put in your name before you begin and integrate it
+    String name = "name="+"John";
+    //String name = "name="+Service.getInstance().getName;
+
+    return urlStart+time+locLat+locLong+phone+name;
+}
+
     public void confirmFriend(){
 
     }
