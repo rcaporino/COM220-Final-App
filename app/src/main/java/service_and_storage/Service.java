@@ -17,8 +17,9 @@ public class Service
     private static final int FAV_DRINK_END_INDEX = 5;
     
     private static Service service;
+    private static String filePath;
     
-    private DataCollection dc;
+    private final DataCollection dc;
     
     private Service(DataCollection dc)
     {
@@ -233,6 +234,17 @@ public class Service
     public void setEmergencyMsg(File file)
     {
         this.dc.setImageFile(file);
+        saveData();
+    }
+    
+    public String getFilePath()
+    {
+        return Service.filePath;
+    }
+    
+    public void setFilePath(String filePath)
+    {
+        Service.filePath = filePath;
         saveData();
     }
     
