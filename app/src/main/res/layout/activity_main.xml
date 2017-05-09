@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="com.example.android.com220finalapp.MainActivity">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -71,6 +78,13 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@android:color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"/>
+
     </RelativeLayout>
 
 
@@ -94,6 +108,7 @@
     </LinearLayout>
 
     <ProgressBar
+        android:id="@+id/drinkmeter"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -111,6 +126,7 @@
         android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_weight="5">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -158,6 +174,15 @@
 
             </ScrollView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="18dp">
+
+            </View>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -165,9 +190,11 @@
                 android:layout_weight="2"
                 >
                 <ImageButton
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="30dp"
+                    android:id="@+id/adddrink"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="50dp"
                     android:src="@drawable/add"
                     android:scaleType="centerInside"
                     android:background="#FFFFFF"
@@ -183,6 +210,7 @@
                     android:scaleType="centerCrop"/>
 
                 <ImageButton
+                    android:id="@+id/change"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_toRightOf="@id/drink"
@@ -244,6 +272,7 @@
 
 
             <ImageButton
+                android:id="@+id/cheers"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:padding="10dp"
@@ -255,7 +284,17 @@
                 android:onClick="cheersBtn"
                 android:layout_gravity="center_horizontal" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="1dp">
+
+            </View>
+
             <ImageButton
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:padding="10dp"
@@ -272,6 +311,15 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp">
+
+    </View>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -279,8 +327,9 @@
         android:layout_weight="2">
 
         <ImageButton
-            android:layout_width="120dp"
-            android:layout_height="80dp"
+            android:id="@+id/story"
+            android:layout_width="265dp"
+            android:layout_height="85dp"
             android:padding="0dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -289,32 +338,41 @@
             android:scaleType="centerCrop"
             android:background="#FFFFFF"
             android:onClick="stryBtn"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@android:color/black"
+            android:layout_below="@id/story"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="18dp"/>
+
+
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:id="@+id/water"
-            android:layout_margin="5dp"
+            android:id="@+id/remedy"
+            android:layout_margin="2dp"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/waterreminder"
+            android:src="@drawable/add_icon"
             android:scaleType="centerInside"
             android:background="#FFFFFF"
-            android:onClick="h20Btn"/>
+            android:onClick="remBtn"/>
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/lastcall"
-            android:layout_toRightOf="@+id/water"
+            android:layout_toRightOf="@+id/remedy"
             android:src="@drawable/lastcall"
             android:scaleType="centerInside"
             android:background="#FFFFFF"
             android:onClick="lastCallBtn"/>
 
-
+        <!--
         <Button
             android:layout_width="60dp"
             android:layout_height="40dp"
@@ -324,26 +382,28 @@
             android:text="remedy"
             android:background="#FFFFFF"
             android:onClick="remBtn"/>
-
-        <!--
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/lastcall"
-            android:src="@drawable/remedy"
-            android:scaleType="centerInside"
-            android:background="#FFFFFF"
-            android:onClick="remBtn"/>
-
             -->
 
+
+
+        <ImageButton
+            android:id="@+id/water"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/lastcall"
+            android:src="@drawable/waterreminder"
+            android:scaleType="centerInside"
+            android:background="#FFFFFF"
+            android:onClick="h20Btn"/>
+
+
+
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="5dp"
+            android:layout_margin="2dp"
             android:id="@+id/contact"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -351,9 +411,10 @@
             android:background="#FFFFFF"
             android:scaleType="centerInside"
             android:onClick="eContactBtn"/>
-            -->
+
 
     </RelativeLayout>
 
 
 </LinearLayout>
+</ScrollView>
