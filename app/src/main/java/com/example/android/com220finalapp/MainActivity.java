@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnChange;
     public boolean hasStorageReadPerms = false, hasStorageWritePerms=false;
 
-    //Service service = Service.getInstance();
-    //User user = service.getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,9 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Service.setFilePath(getFilesDir());
-
 
         btnChange = (ImageButton) findViewById(R.id.refresh);
         simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);
@@ -191,23 +187,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void repeatDrink(View view)
-//    {
-//        List<Drink> listOfDrinks = service.getDrinksConsumed();
-//        int sizeOfList = listOfDrinks.size();
-//
-//        Drink lastDrink = listOfDrinks.get(sizeOfList - 1);
-//
-//        java.util.Date today = new java.util.Date();
-//        java.sql.Timestamp time1 = new java.sql.Timestamp(today.getTime());
-//        long timeNow = time1.getTime();
-//
-//        service.addConsumedDrink(lastDrink.getName(),lastDrink.getSizeInOz(),
-//        lastDrink.getProof(), timeNow);
-//
-//        System.out.println(user.getIntoxLevel());
-//
-//    }
 //TODO right now we have:
     /*last call
     food

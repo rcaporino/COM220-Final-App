@@ -18,8 +18,6 @@ import service_and_storage.User;
 
 public class Eating extends AppCompatActivity {
 
-    Service service = Service.getInstance();
-    User user = service.getUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,7 @@ public class Eating extends AppCompatActivity {
         String hours = hourField.getText().toString();
         int hour = Integer.parseInt(hours);
         long timeEaten = new Date().getTime() - (hour * 60 * 60 * 1000);
-        //service.setUserMealTimeEaten(timeEaten);
+        Service.getInstance().setUserMealTimeEaten(timeEaten);
 
 
 
@@ -68,8 +66,9 @@ public class Eating extends AppCompatActivity {
             //set large
             //System.out.println("IN LARGE");
            //service.setUserMealType(Meal.MealType.Large);
-            Meal MealObj = new Meal(Meal.MealType.Large, timeEaten);
-            user.setMeal(MealObj);
+            Service.getInstance().setUserMeal(Meal.MealType.Large, timeEaten);
+//            Meal MealObj = new Meal(Meal.MealType.Large, timeEaten);
+//            user.setMeal(MealObj);
 
         }
         if(mediumMeal.isChecked())
@@ -77,16 +76,18 @@ public class Eating extends AppCompatActivity {
             //set medium
             //System.out.println("IN Medium");
             //service.setUserMealType(Meal.MealType.Medium);
-            Meal MealObj = new Meal(Meal.MealType.Medium, timeEaten);
-            user.setMeal(MealObj);
+            Service.getInstance().setUserMeal(Meal.MealType.Medium, timeEaten);
+//            Meal MealObj = new Meal(Meal.MealType.Medium, timeEaten);
+//            user.setMeal(MealObj);
         }
         if(smallMeal.isChecked())
         {
             //set small
             //System.out.println("IN small");
             //service.setUserMealType(Meal.MealType.Small);
-            Meal MealObj = new Meal(Meal.MealType.Small, timeEaten);
-            user.setMeal(MealObj);
+            Service.getInstance().setUserMeal(Meal.MealType.Small, timeEaten);
+//            Meal MealObj = new Meal(Meal.MealType.Small, timeEaten);
+//            user.setMeal(MealObj);
         }
 
 

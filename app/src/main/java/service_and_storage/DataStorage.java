@@ -57,7 +57,7 @@ public class DataStorage
         try
         {
             ObjectInputStream ois = new ObjectInputStream(
-                    new FileInputStream(Service.getInstance().getFilePath() + 
+                    new FileInputStream(parentDir +
                             DataStorage.DRINK_FILE_NAME));
             list = (List<Drink>) ois.readObject();
         }
