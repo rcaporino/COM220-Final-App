@@ -1,45 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.com220finalapp.MyDrink"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyDrink">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:orientation="vertical"
+    android:baselineAligned="false">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*Insert Drink Name Here*"
-        android:layout_centerHorizontal="true"
-        android:textSize="40sp"
-        android:textAlignment="center"
-        android:paddingTop="20dp"
-        android:id="@+id/drink_name"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*Percent*"
-        android:id="@+id/percent"
-        android:textSize="35sp"
-        android:layout_below="@id/drink_name"
-        android:paddingTop="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="*Ozs*"
-        android:id="@+id/ozs"
-        android:textSize="35sp"
-        android:layout_below="@id/percent"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SAVE"
-        android:textSize="40sp"
-        android:layout_below="@id/ozs"
-        android:layout_centerHorizontal="true"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/TopViewBar"
         />
 
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD A DRINK"
+        style="@style/Heading"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Name: "
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+
+                />
+
+            <EditText
+                android:id="@+id/drink_name"
+                android:layout_marginTop="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="Proof: "
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/proof"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="Ozs: "
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/ozs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@android:color/darker_gray" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="Current BAC:"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/bac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnCompleted"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:onClick="addButton"
+            android:text="Add"
+            android:textAppearance="@style/Buttonstyle" />
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/main_menu"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:onClick="mainMenu"
+            android:text="Menu"
+            android:textAppearance="@style/Buttonstyle" />
+    </LinearLayout>
+
+
+
+</LinearLayout>
