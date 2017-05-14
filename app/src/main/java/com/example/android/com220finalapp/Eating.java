@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.Date;
 
@@ -48,54 +49,62 @@ public class Eating extends AppCompatActivity {
         //RadioGroup radioButtonGroup = (RadioGroup) findViewById(R.id.radiogroup);
         //int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
 
-
-        EditText hourField = (EditText) findViewById(R.id.houramount);
-        String hours = hourField.getText().toString();
-        int hour = Integer.parseInt(hours);
-        long timeEaten = new Date().getTime() - (hour * 60 * 60 * 1000);
-        Service.getInstance().setUserMealTimeEaten(timeEaten);
+        try {
 
 
+            EditText hourField = (EditText) findViewById(R.id.houramount);
+            String hours = hourField.getText().toString();
+            int hour = Integer.parseInt(hours);
+            long timeEaten = new Date().getTime() - (hour * 60 * 60 * 1000);
+            //Service.getInstance().setUserMealTimeEaten(timeEaten);
 
-        RadioButton largeMeal = (RadioButton) findViewById(R.id.largemeal);
-        RadioButton mediumMeal = (RadioButton) findViewById(R.id.mediummeal);
-        RadioButton smallMeal = (RadioButton) findViewById(R.id.smallmeal);
 
-        if(largeMeal.isChecked())
-        {
-            //set large
-            //System.out.println("IN LARGE");
-           //service.setUserMealType(Meal.MealType.Large);
-            Service.getInstance().setUserMeal(Meal.MealType.Large, timeEaten);
-//            Meal MealObj = new Meal(Meal.MealType.Large, timeEaten);
-//            user.setMeal(MealObj);
+            RadioButton largeMeal = (RadioButton) findViewById(R.id.largemeal);
+            RadioButton mediumMeal = (RadioButton) findViewById(R.id.mediummeal);
+            RadioButton smallMeal = (RadioButton) findViewById(R.id.smallmeal);
 
-        }
-        if(mediumMeal.isChecked())
-        {
-            //set medium
-            //System.out.println("IN Medium");
-            //service.setUserMealType(Meal.MealType.Medium);
-            Service.getInstance().setUserMeal(Meal.MealType.Medium, timeEaten);
+            if (largeMeal.isChecked()) {
+                //set large
+                //System.out.println("IN LARGE");
+                //service.setUserMealType(Meal.MealType.Large);
+                Service.getInstance().setUserMeal(Meal.MealType.Large, timeEaten);
+//          Meal MealObj = new Meal(Meal.MealType.Large, timeEaten);
+//          user.setMeal(MealObj);
+
+            }
+            else if (mediumMeal.isChecked()) {
+                //set medium
+                //System.out.println("IN Medium");
+                //service.setUserMealType(Meal.MealType.Medium);
+                Service.getInstance().setUserMeal(Meal.MealType.Medium, timeEaten);
 //            Meal MealObj = new Meal(Meal.MealType.Medium, timeEaten);
 //            user.setMeal(MealObj);
-        }
-        if(smallMeal.isChecked())
-        {
-            //set small
-            //System.out.println("IN small");
-            //service.setUserMealType(Meal.MealType.Small);
-            Service.getInstance().setUserMeal(Meal.MealType.Small, timeEaten);
+            }
+            else if (smallMeal.isChecked()) {
+                //set small
+                //System.out.println("IN small");
+                //service.setUserMealType(Meal.MealType.Small);
+                Service.getInstance().setUserMeal(Meal.MealType.Small, timeEaten);
 //            Meal MealObj = new Meal(Meal.MealType.Small, timeEaten);
 //            user.setMeal(MealObj);
+            }
+            else
+            {
+                Toast.makeText(this, "You forgot to chose a meal type", Toast.LENGTH_SHORT).show();
+            }
         }
+        catch(NumberFormatException e)
+        {
+            Toast.makeText(this, "You forgot to add number of hours", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 
         //System.out.println(radioButtonID);
         //System.out.println(MealObj.getMealType());
         //System.out.println(MealObj.getTimeEaten());
-    }
+
 
     public void menu()
     {
