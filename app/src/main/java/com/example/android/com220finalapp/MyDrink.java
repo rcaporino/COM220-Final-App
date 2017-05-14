@@ -75,6 +75,17 @@ public class MyDrink extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void getCurrentBAC(View view)
+    {
+        Drunkeness currentBAC = new Drunkeness();
+        currentBAC.getCurrentBAC();
+
+        double BAC = Service.getInstance().getUserIntoxLevel();
+
+        TextView displayBAC = (TextView) findViewById(R.id.bac);
+        displayBAC.setText(Double.toString(BAC));
+    }
+
     public void clearBAC(View view)
     {
         Service.getInstance().setUserIntoxLevel(0.0);
