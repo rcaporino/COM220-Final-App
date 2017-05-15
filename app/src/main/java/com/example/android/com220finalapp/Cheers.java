@@ -229,6 +229,7 @@ cheersText.setText("Loading Location \n");
                     }
                 } else if (!done) {
                     Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
+                    Log.i("BakerURL",createUrl());
                     cheersText.setText("Attempting Pairing");
                     cheersText.setTextSize(30);
                    //cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
