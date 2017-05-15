@@ -113,16 +113,22 @@ public class Drunkeness extends AppCompatActivity
              */
         }
 
-//            if(Service.getInstance().getUserMealType() != null) {
+//        try {
 //
-//                if (Service.getInstance().getUserMealType() == Meal.MealType.Large) {
-//                    bloodAlcohol = bloodAlcohol - 0.003;
-//                } else if (Service.getInstance().getUserMealType() == Meal.MealType.Medium) {
-//                    bloodAlcohol = bloodAlcohol - 0.002;
-//                } else if (Service.getInstance().getUserMealType() == Meal.MealType.Small) {
-//                    bloodAlcohol = bloodAlcohol - 0.001;
-//                }
+//            if (Service.getInstance().getUserMealType() == Meal.MealType.Large) {
+//                bloodAlcohol = bloodAlcohol - 0.003;
+//            } else if (Service.getInstance().getUserMealType() == Meal.MealType.Medium) {
+//                bloodAlcohol = bloodAlcohol - 0.002;
+//            } else if (Service.getInstance().getUserMealType() == Meal.MealType.Small) {
+//                bloodAlcohol = bloodAlcohol - 0.001;
 //            }
+//
+//            } catch (Exception e)
+//            {
+//                e.printStackTrace();
+//            }
+
+
 
         Service.getInstance().setUserIntoxLevel(bloodAlcohol);
         //user.setIntoxLevel(bloodAlcohol);
@@ -218,8 +224,13 @@ public class Drunkeness extends AppCompatActivity
              */
         }
 
-
-        Service.getInstance().setUserIntoxLevel(bloodAlcohol);
+        if(bloodAlcohol > 0)
+        {
+            Service.getInstance().setUserIntoxLevel(bloodAlcohol);
+        } else {
+            bloodAlcohol = 0.0;
+            Service.getInstance().setUserIntoxLevel(bloodAlcohol);
+        }
 
     }
 

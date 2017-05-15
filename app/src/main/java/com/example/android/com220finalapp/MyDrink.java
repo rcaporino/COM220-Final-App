@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
 import java.util.List;
 import service_and_storage.Drink;
 import service_and_storage.Service;
@@ -20,13 +22,16 @@ public class MyDrink extends AppCompatActivity
         setContentView(R.layout.activity_my_drink);
 
         double BAC = Service.getInstance().getUserIntoxLevel();
+        String formatBAC = myFormatter.format(BAC);
 
         TextView displayBAC = (TextView) findViewById(R.id.bac);
-        displayBAC.setText(Double.toString(BAC));
+        displayBAC.setText(formatBAC);
 
     }
 
     List<Drink> drinkList = Service.getInstance().getDrinksConsumed();
+
+    DecimalFormat myFormatter = new DecimalFormat("#.###");
 
     public void addButton(View v)
     {
@@ -53,9 +58,10 @@ public class MyDrink extends AppCompatActivity
             getBAC.setBloodAlcohol();
 
             double BAC = Service.getInstance().getUserIntoxLevel();
+            String formatBAC = myFormatter.format(BAC);
 
             TextView displayBAC = (TextView) findViewById(R.id.bac);
-            displayBAC.setText(Double.toString(BAC));
+            displayBAC.setText(formatBAC);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -81,9 +87,10 @@ public class MyDrink extends AppCompatActivity
         currentBAC.getCurrentBAC();
 
         double BAC = Service.getInstance().getUserIntoxLevel();
+        String formatBAC = myFormatter.format(BAC);
 
         TextView displayBAC = (TextView) findViewById(R.id.bac);
-        displayBAC.setText(Double.toString(BAC));
+        displayBAC.setText(formatBAC);
     }
 
     public void clearBAC(View view)
