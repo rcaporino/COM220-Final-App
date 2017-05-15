@@ -331,10 +331,10 @@ private String createUrl(){
     String locLat = "&locationLat="+Double.toString(currentLatitude);
     String locLong = "&locationLong="+Double.toString(currentLongitude);
     //TODO get the user phone number
-    String phone = "&phone="+"6315664542";
-    String number = "&number="+"6315664542";
+    String phone = "&phone="+"6319991111";
+    String number = "&number="+"6319991111";
     //TODO get the user name
-    String name = "&name="+"John";
+    String name = "&name="+"Default";
     //String name = "name="+Service.getInstance().getName;
 
     return urlStart+time+locLat+locLong+phone+number+name;
