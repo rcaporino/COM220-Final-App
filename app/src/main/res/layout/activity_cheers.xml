@@ -48,12 +48,12 @@
             tools:ignore="UselessParent">
 
             <Button
-                android:id="@+id/cheers__two_purpose_button"
+                android:id="@+id/cheers_two_purpose_button"
                 style="@style/Buttonstyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="buttonPress"
+                android:onClick="twoFunctionButtonPress"
                 android:text="@string/cheers_button" />
             <Button
                 android:id="@+id/cheers_confirm_button"
