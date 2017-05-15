@@ -95,7 +95,7 @@ private boolean done = false;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.cheersMainText);
         cheersText = (TextView) findViewById(R.id.cheersMainText);
-        cheersTwoPurposeButton = (Button) findViewById(R.id.cheers__two_purpose_button);
+        cheersTwoPurposeButton = (Button) findViewById(R.id.cheers_two_purpose_button);
         cheersConfirmButton = (Button) findViewById(R.id.cheers_confirm_button);
         Log.i("BakerContext", "Setting Context");
         Log.i("BakerAccel", "Getting Accel");
@@ -350,7 +350,7 @@ private String createUrl(){
        Service.getInstance().addCheersFriend(friend);
     }
 
-    private void twoFunctionButtonPress(View view){
+    public void twoFunctionButtonPress(View view){
         setSingleButton();
         if(confirmedDirections==true && currentLatitude!=0.0) {
             done = false;
@@ -369,7 +369,7 @@ confirmedDirections =true;
 
         }
     }
-    private void confirmButtonPress (View view){
+    public void confirmButtonPress (View view){
         if(!Service.getInstance().getCheersFriends().contains(friend)){
             addFriend(friendName, friendNum);
             cheersText.setText("Friend Added! Press restart to add another friend!");
@@ -384,7 +384,7 @@ confirmedDirections =true;
             v.requestLayout();
         }
     }
-    private void setSingleButton(){
+    public void setSingleButton(){
         cheersConfirmButton.setLayoutParams(new LinearLayout.LayoutParams(0,0,0));
         setMargins(cheersTwoPurposeButton,0,0,0,0);
         setMargins(cheersConfirmButton,0,0,0,0);

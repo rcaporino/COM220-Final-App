@@ -3,6 +3,6 @@
 
     <string name="title_activity_cheers">Cheers</string>
     <string name="cheers_button">Please Wait</string>
-    <string name="cheers_start">CHEERS ACTIVE</string>
+    <string name="cheers_start">Cheers Start</string>
 
 </resources>
