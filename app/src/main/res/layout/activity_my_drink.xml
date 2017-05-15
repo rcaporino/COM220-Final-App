@@ -165,16 +165,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
                 android:onClick="addButton"
-                android:text="Add"
-                android:textAppearance="@style/Buttonstyle" />
-
-            <Button
-                android:id="@+id/main_menu"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:onClick="mainMenu"
-                android:text="Menu"
+                android:text="Add Drink"
                 android:textAppearance="@style/Buttonstyle" />
 
             <Button
@@ -184,6 +175,15 @@
                 android:layout_gravity="center"
                 android:onClick="getCurrentBAC"
                 android:text="Update BAC"
+                android:textAppearance="@style/Buttonstyle" />
+
+            <Button
+                android:id="@+id/main_menu"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:onClick="mainMenu"
+                android:text="Menu"
                 android:textAppearance="@style/Buttonstyle" />
         </LinearLayout>
 
