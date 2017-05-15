@@ -102,7 +102,7 @@ public class Drunkeness extends AppCompatActivity
             timeDiff = timeDiff / (60.0 * 60.0 * 1000.0);
 
             gramsOfAlc = oz * (proof / 100.0) / 2.0;
-            bloodAlcohol += (gramsOfAlc * 5.14) / (weight * gc) - (.015 * timeDiff);
+            bloodAlcohol += Math.abs((gramsOfAlc * 5.14) / (weight * gc) - (.015 * timeDiff));
             /*
              * Widmark formula % BAC = (A x 5.14 / W x r) – .015 x H
              * A = grams of alcohol
