@@ -55,12 +55,18 @@ public class CheersJsonAsync extends AsyncTask<String, String, ArrayList<String>
         try {
             Log.i("BAKERCALL", "CALLING");
             String json = callURL(url);
+            json=json.replaceAll("\\\\","");
+            json=json.replaceAll("\""+"\\{","\\{");
+            json=json.replaceAll("\\}"+"\"","\\}");
+
             Log.i("BakerJSONRAW", json);
             ArrayList<String> jsonFriend = new ArrayList<String>();
             if(!json.equals("\"No Cheers Found\"")){
                 JSONObject urlRet = new JSONObject(json);
-                jsonFriend.add(urlRet.getString("name"));
-                jsonFriend.add(urlRet.getString("number"));
+                JSONObject val = urlRet.getJSONObject("Value");
+
+                jsonFriend.add(val.getString("name"));
+                jsonFriend.add(val.getString("phone"));
             }else{
                 jsonFriend.add("No Cheers");
                 jsonFriend.add("No Cheers");

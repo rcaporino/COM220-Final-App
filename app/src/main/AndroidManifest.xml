@@ -45,6 +45,8 @@
         <activity android:name=".EmergencyContact"></activity>
         <activity android:name=".HangoverWebView"></activity>
         <activity android:name=".setup"></activity>
+        <activity android:name=".MyDrink"></activity>
+
         <provider
             android:name = "android.support.v4.content.FileProvider"
             android:authorities="com.example.android.com220finalapp.provider"
