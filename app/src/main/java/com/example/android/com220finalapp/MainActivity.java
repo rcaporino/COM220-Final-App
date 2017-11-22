@@ -17,12 +17,12 @@ import service_and_storage.Service;
 
 
 public class MainActivity extends AppCompatActivity {
+
     private ViewSwitcher simpleViewSwitcher;
     ImageButton btnChange;
     public boolean hasStorageReadPerms = false, hasStorageWritePerms=false;
 
-    //Service service = Service.getInstance();
-    //User user = service.getUser();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
         Service.setFilePath(getFilesDir());
 
-
-        btnChange = (ImageButton) findViewById(R.id.refresh);
-        simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);
+        //btnChange = (ImageButton) findViewById(R.id.refresh);
+       // simpleViewSwitcher = (ViewSwitcher) findViewById(R.id.drink);
         reqPermissions(1);
         reqPermissions(2);
+
     }
 
     public void reqPermissions(int i) {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     // contacts-related task you need to do.
 
                 } else {
-                    reqPermissions(1);
+                 //   reqPermissions(1);
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     // contacts-related task you need to do.
 
                 } else {
-                    reqPermissions(2);
+//                    reqPermissions(2);
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -191,23 +191,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void repeatDrink(View view)
-//    {
-//        List<Drink> listOfDrinks = service.getDrinksConsumed();
-//        int sizeOfList = listOfDrinks.size();
-//
-//        Drink lastDrink = listOfDrinks.get(sizeOfList - 1);
-//
-//        java.util.Date today = new java.util.Date();
-//        java.sql.Timestamp time1 = new java.sql.Timestamp(today.getTime());
-//        long timeNow = time1.getTime();
-//
-//        service.addConsumedDrink(lastDrink.getName(),lastDrink.getSizeInOz(),
-//        lastDrink.getProof(), timeNow);
-//
-//        System.out.println(user.getIntoxLevel());
-//
-//    }
 //TODO right now we have:
     /*last call
     food

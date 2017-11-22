@@ -18,23 +18,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import service_and_storage.Friend;
 import service_and_storage.Service;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
-public class Cheers extends AppCompatActivity implements SensorEventListener {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
+public class Cheers extends AppCompatActivity implements SensorEventListener, CheersJsonAsync.Handoff {
 
-    private static final boolean AUTO_HIDE = true;
     long timeStamp = 0L;
     Location currentLocation;
     double currentLatitude, currentLongitude;
@@ -55,12 +50,11 @@ public class Cheers extends AppCompatActivity implements SensorEventListener {
     LocationManager locationManager;
     LocationListener locationListener;
     private boolean hasLocPerms = false;
+    private String friendName = "", friendNum="";
+    private String url = "";
+    private Friend friend;
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+
 private boolean done = false;
     /**
      * Some older devices needs a small delay between UI widget updates
@@ -88,14 +82,8 @@ private boolean done = false;
     };
     private View mControlsView;
     TextView cheersText;
-    Button cheersButton;
-
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-
+    Button cheersTwoPurposeButton;
+    Button cheersConfirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +95,8 @@ private boolean done = false;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.cheersMainText);
         cheersText = (TextView) findViewById(R.id.cheersMainText);
-        cheersButton = (Button) findViewById(R.id.cheers_button);
+        cheersTwoPurposeButton = (Button) findViewById(R.id.cheers_two_purpose_button);
+        cheersConfirmButton = (Button) findViewById(R.id.cheers_confirm_button);
         Log.i("BakerContext", "Setting Context");
         Log.i("BakerAccel", "Getting Accel");
         sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
@@ -115,7 +104,6 @@ private boolean done = false;
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         Log.i("BakerAccel", "Accel set up.");
 
-        //TODO put the pairing notification to the server here with the time.
         if(hasLocPerms)
             findLocation();
     }
@@ -160,10 +148,6 @@ private boolean done = false;
 
     }
 
-    public long getTimeInMilliseconds() {
-        return System.currentTimeMillis();
-    }
-
 
     public void updateLocation(Location location) {
         currentLocation = location;
@@ -197,12 +181,12 @@ cheersText.setText("Loading Location \n");
 
                 currentTime = System.currentTimeMillis();
                 if (!upwardSuccessful) {
-                    if(confirmedDirections == false) {
+                    if(!confirmedDirections) {
                         cheersText.setTextSize(20);
                         cheersText.setText("Instructions: \n\n" +
                                 "At the same time, thrust your phones forward, bump knuckles, and up toward the sky!\n\n" +
                                 "Push the button when ready!");
-                        cheersButton.setText("Go!");
+                        cheersTwoPurposeButton.setText("Go!");
                     } else{
                     if (currentTime - lastTime > 5) {
 
@@ -243,13 +227,16 @@ cheersText.setText("Loading Location \n");
 
                     }
                     }
-                } else if (done == false) {
+                } else if (!done) {
                     Log.i("BakerComplete", "Mission Completed at " + timeStamp + " Location: " + currentLatitude + " , " + currentLongitude);
-                    cheersText.setTextSize(20);
-                    cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
+                    Log.i("BakerURL",createUrl());
+                    cheersText.setText("Attempting Pairing");
+                    cheersText.setTextSize(30);
+                   //cheersText.setText("Cheers Complete at: \n" + timeStamp + "\n" + "Location: " + "\n" + currentLatitude + " , " + currentLongitude);
+                    new CheersJsonAsync(createUrl(),this).execute();
                     lastTime = currentTime;
                     done = true;
-                    cheersButton.setText("Restart");
+                    cheersTwoPurposeButton.setText("Restart");
                 }
             }
         }
@@ -321,15 +308,51 @@ cheersText.setText("Loading Location \n");
     }
 
     //TODO add in the below once the friends list is ready to be implemented
-    public void confirmFriend(){
+    @Override
+    public void backToMainActivity(ArrayList<String> s){
+        if(!s.isEmpty()) {
+            friendName = s.get(0);
+            friendNum = s.get(1);
 
+            if (!friendName.equals("No Cheers")) {
+                confirmFriend();
+            } else {
+                cheersText.setText("No match found!\nPress the button below to try again!");
+            }
+
+        }
+        else{
+            cheersText.setText("Cheers pairing currently unavailable!\nPress the button below to try again!");
+        }
+    }
+private String createUrl(){
+    String urlStart ="http://quizkidappapi.azurewebsites.net/api/com220?";
+    String time = "time="+Long.toString(timeStamp);
+    String locLat = "&locationLat="+Double.toString(currentLatitude);
+    String locLong = "&locationLong="+Double.toString(currentLongitude);
+    //TODO get the user phone number
+    String phone = "&phone="+"6319991111";
+    String number = "&number="+"6319991111";
+    //TODO get the user name
+    String name = "&name="+"Default";
+    //String name = "name="+Service.getInstance().getName;
+
+    return urlStart+time+locLat+locLong+phone+number+name;
+}
+
+    private void confirmFriend(){
+        cheersText.setText("Add Friend?\n" + "Name: "+friendName+"\nNumber: " + friendNum);
+        setDualButton();
     }
 
-    public void addFriend(String name, String num){
-       Service.getInstance().addCheersFriend(new Friend(name,num));
+    private void addFriend(String name, String num){
+        friend.setName(name);
+        friend.setNum(num);
+       Service.getInstance().addCheersFriend(friend);
     }
 
-    public void buttonPress(View view){
+    public void twoFunctionButtonPress(View view){
+        setSingleButton();
         if(confirmedDirections==true && currentLatitude!=0.0) {
             done = false;
             forwardSuccessful = false;
@@ -339,12 +362,37 @@ cheersText.setText("Loading Location \n");
             cheersText.setText("Instructions: \n\n" +
                     "At the same time, thrust your phones forward, bump knuckles, and up toward the sky!\n\n" +
                     "Push the button when ready!");
-            cheersButton.setText("Restart");
+            cheersTwoPurposeButton.setText("Restart");
             confirmedDirections=false;
         } else {
 confirmedDirections =true;
-            cheersButton.setText("Restart");
+            cheersTwoPurposeButton.setText("Restart");
+
         }
     }
-
+    public void confirmButtonPress (View view){
+        if(!Service.getInstance().getCheersFriends().contains(friend)){
+            addFriend(friendName, friendNum);
+            cheersText.setText("Friend Added! Press restart to add another friend!");
+        } else {
+            cheersText.setText("Friend already exists! Press restart to add a different friend");
+        }
+    }
+    public void setMargins (View v, int l, int t, int r, int b) {
+        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            p.setMargins(l, t, r, b);
+            v.requestLayout();
+        }
+    }
+    public void setSingleButton(){
+        cheersConfirmButton.setLayoutParams(new LinearLayout.LayoutParams(0,0,0));
+        setMargins(cheersTwoPurposeButton,0,0,0,0);
+        setMargins(cheersConfirmButton,0,0,0,0);
+    }
+    private void setDualButton(){
+        cheersConfirmButton.setLayoutParams(new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.WRAP_CONTENT,1));
+        setMargins(cheersTwoPurposeButton,0,0,4,0);
+        setMargins(cheersConfirmButton,4,0,0,0);
+    }
 }

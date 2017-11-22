@@ -50,7 +50,7 @@ public class ExampleUnitTest
         drinkList.add(drink3);
         drinkList.add(drink4);
         //call function with test data
-        test1.setBloodAlcohol(user, drinkList);
+     //   test1.setBloodAlcohol(user, drinkList);
         //do assertions
         assertEquals(.048, user.getIntoxLevel(), .001);
     }
