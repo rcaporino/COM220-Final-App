@@ -10,5 +10,5 @@ The development cycle for this app was very quick, about two weeks. The app is o
 # Known Issues
 There is an issue where people cannot be removed from your party, as there is no remove feature to the persistent data storage module due to an oversight on planning.
 
-#Installation
+# Installation
 Clone locally and import it into your IDE, build the apk and download to your Android device.
