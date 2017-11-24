@@ -1,16 +1,14 @@
 # COM220-Final-App
 # A Blood Alcohol Content Tracker app
 
-This was a the final class project for our Mobile App Developement course. The repository says that there were 11 contributors, but there was more like 13 or 14, as not all of them were using source control properly (much to our chagrin).
+This was a the final class project for our Mobile App Developement course.
 
-The developement cycle for this app was very quick, about two weeks, and it shows as important features are missing. The app is of May finished, and no more work is planned for it. 
+This app allows the user to push a button each time they have an alcoholic beverage, and will estimate the change in their Blood Alcohol Content based on that. It has the ability to send texts to contacts who you specify as part of your party. It can also be used to take selfies for a 'story' which you would be able to share with your friends had this been more than a school project (had servers associated with it).
 
-TODO: Will update with app store status
+The development cycle for this app was very quick, about two weeks. The app is of May finished, and no more work is planned for it. 
 
-Forked from https://github.com/rcaporino/COM220-Final-App who was in charge of source control for the project.
+# Known Issues
+There is an issue where people cannot be removed from your party, as there is no remove feature to the persistent data storage module due to an oversight on planning.
 
-For this project, I (SiggiVG) handled GPS services and the Come Find Me feature, which at the push of a button sends a google maps link to anyone in your "Party", as well as interfacing between the persistant data storage module and application.
-
-There is an issue where people cannot be removed from your party, as there is no remove feature to the persistant data storage module due to an oversight on planning.
-
-To install/play with, merely clone locally and import it into android studio.
+#Installation
+Clone locally and import it into your IDE, build the apk and download to your Android device.
