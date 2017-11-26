@@ -9,8 +9,5 @@ This app allows the user to push a button each time they have an alcoholic bever
 
 The development cycle for this app was very quick, about two weeks. The app is of May finished, and no more work is planned for it. 
 
-# Known Issues
-There is an issue where people cannot be removed from your party, as there is no remove feature to the persistent data storage module due to an oversight on planning.
-
 # Installation
 Clone locally and import it into your IDE, build the apk and download to your Android device.
